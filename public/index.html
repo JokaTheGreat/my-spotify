@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -18,20 +19,227 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>My Spotify</title>
   </head>
-  <body>
+  <body class="body">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <aside class="side-bar">
+      <nav class="side-bar__menu menu">
+        <a href="/" class="link">
+          <img width="130px" src="imgs/icons/spotifyLogo.svg" alt="Spotify"/>
+        </a>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+        <div class="menu__top">
+          <a href="/" class="menu__link link">
+            <svg width="24px" height="24px" class="menu__img">
+              <use xlink:href="imgs/icons/main.svg#home"></use>
+            </svg>
+            <h3 class="menu__title">Главная</h3>
+          </a>
+  
+          <a href="/" class="menu__link link menu__link_active">
+            <svg width="24px" height="24px" class="menu__img">
+              <use xlink:href="imgs/icons/main.svg#search"></use>
+              <use xlink:href="imgs/icons/main.svg#search_active"></use>
+            </svg>
+            <h3 class="menu__title">Поиск</h3>
+          </a>
+  
+          <a href="/" class="menu__link link">
+            <svg width="24px" height="24px" class="menu__img">
+              <use xlink:href="imgs/icons/main.svg#media"></use>
+            </svg>
+            <h3 class="menu__title">Моя медиатека</h3>
+          </a>
+        </div>
+
+        <div class="menu__center">
+          <a href="/" class="menu__link link">
+            <div class="menu__img create-playlist-img">
+              <div class="create-playlist-img__line"></div>
+              <div class="create-playlist-img__line create-playlist-img__line_horizontal"></div>
+            </div>
+            <h3 class="menu__title">Создать плейлист</h3>
+          </a>
+  
+          <a href="/" class="menu__link link">
+            <div class="menu__img favorite-tracks-img">
+              <svg width="12px" height="12px" aria-hidden="true" class="favorite-tracks-img__heart">
+                <use xlink:href="imgs/icons/main.svg#heart"></use>
+              </svg>
+            </div>
+            <h3 class="menu__title">Любимые треки</h3>
+          </a>
+        </div>
+
+        <div class="menu__empty-section"></div>
+
+        <a href="/" class="menu__link link">
+          <svg width="20px" height="20px" class="menu__img download-img">
+            <use xlink:href="imgs/icons/main.svg#download"></use>
+          </svg>
+          <h3 class="menu__title">Установить приложение</h3>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <div class="page-pointers">
+          <svg width="30px" height="30px" class="page-pointers__arrow page-pointers__arrow_active">
+            <use xlink:href="imgs/icons/main.svg#arrow_left"></use>
+          </svg>
+          <svg width="30px" height="30px" class="page-pointers__arrow page-pointers__arrow_right">
+            <use xlink:href="imgs/icons/main.svg#arrow_left"></use>
+          </svg>
+        </div>
+
+        <div class="search-form">
+          <svg width="24px" height="24px" class="search-form__search-icon">
+            <use xlink:href="imgs/icons/main.svg#search"></use>
+          </svg>
+          <input type="text" placeholder="Исполнитель, трек или подкаст" class="search-form__input" />
+          <svg width="24px" height="24px" class="search-form__clear-icon">
+            <use xlink:href="imgs/icons/main.svg#clear"></use>
+          </svg>
+        </div>
+
+        <div class="account">
+          <div class="account__icon-wrapper">
+            <svg width="20px" height="20px" class="account__icon">
+              <use xlink:href="imgs/icons/main.svg#user"></use>
+            </svg>
+          </div>
+          <span class="account__name">Никита</span>
+          <svg width="24px" height="24px" class="account__arrow">
+            <use xlink:href="imgs/icons/main.svg#arrow_down"></use>
+          </svg>
+        </div>
+      </header>
+
+      <div class="content">
+        <h2 class="content__title">Все остальное</h2>
+        <section class="content__main">
+
+          <article class="content-item content-item_podcast">
+            <h2 class="content-item__title">Подкасты</h2>
+            <img width="100px" height="100px" src="imgs/content/podcast.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_for-you">
+            <h2 class="content-item__title">Для тебя</h2>
+            <img width="100px" height="100px" src="imgs/content/pop.png" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_chart">
+            <h2 class="content-item__title">Чарты</h2>
+            <img width="100px" height="100px" src="imgs/content/charts.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_new-music">
+            <h2 class="content-item__title">Новые релизы</h2>
+            <img width="100px" height="100px" src="imgs/content/newMusic.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_rec">
+            <h2 class="content-item__title">Рекомендации</h2>
+            <img width="100px" height="100px" src="imgs/content/rec.jpeg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_concert">
+            <h2 class="content-item__title">Concerts</h2>
+            <img width="100px" height="100px" src="imgs/content/mic.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_pop">
+            <h2 class="content-item__title">Поп</h2>
+            <img width="100px" height="100px" src="imgs/content/pop2.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_podcast">
+            <h2 class="content-item__title">Подкасты</h2>
+            <img width="100px" height="100px" src="imgs/content/podcast.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_for-you">
+            <h2 class="content-item__title">Для тебя</h2>
+            <img width="100px" height="100px" src="imgs/content/pop.png" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_chart">
+            <h2 class="content-item__title">Чарты</h2>
+            <img width="100px" height="100px" src="imgs/content/charts.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_new-music">
+            <h2 class="content-item__title">Новые релизы</h2>
+            <img width="100px" height="100px" src="imgs/content/newMusic.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_rec">
+            <h2 class="content-item__title">Рекомендации</h2>
+            <img width="100px" height="100px" src="imgs/content/rec.jpeg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_concert">
+            <h2 class="content-item__title">Concerts</h2>
+            <img width="100px" height="100px" src="imgs/content/mic.jpg" alt="" class="content-item__picture" />
+          </article>
+
+          <article class="content-item content-item_pop">
+            <h2 class="content-item__title">Поп</h2>
+            <img width="100px" height="100px" src="imgs/content/pop2.jpg" alt="" class="content-item__picture" />
+          </article>
+
+        </section>
+      </div>
+    </main>
+
+    <footer class="player">
+      <div class="player__main">
+        <div class="player__controls controls">
+          <svg width="16px" height="16px" class="controls__btn">
+            <use xlink:href="imgs/icons/player.svg#mix"></use>
+          </svg>
+          <svg width="16px" height="16px" class="controls__btn">
+            <use xlink:href="imgs/icons/player.svg#arrow_left"></use>
+          </svg>
+          <div class="controls__btn-container">
+            <svg width="16px" height="16px" class="controls__btn controls__btn_black">
+              <use xlink:href="imgs/icons/player.svg#pause"></use>
+            </svg>
+          </div>
+          <svg width="16px" height="16px" class="controls__btn controls__btn_reflected">
+            <use xlink:href="imgs/icons/player.svg#arrow_left"></use>
+          </svg>
+          <svg width="16px" height="16px" class="controls__btn">
+            <use xlink:href="imgs/icons/player.svg#repeat"></use>
+          </svg>
+        </div>
+
+        <div class="progress-bar">
+          <span class="progress-bar__current">0:00</span>
+          <div class="progress-bar__main"></div>
+          <span class="progress-bar__end">2:24</span>
+        </div>
+      </div>
+
+      <div class="player__side-controls side-controls">
+        <svg width="16px" height="16px" class="side-controls__btn">
+          <use xlink:href="imgs/icons/player.svg#query"></use>
+        </svg>
+        <svg width="16px" height="16px" class="side-controls__btn">
+          <use xlink:href="imgs/icons/player.svg#device_connect"></use>
+        </svg>
+        <div class="side-controls__volume">
+          <svg width="16px" height="16px" class="side-controls__btn">
+            <use xlink:href="imgs/icons/player.svg#volume"></use>
+          </svg>
+          <div class="side-controls__volume-bar"></div>
+          <div class="side-controls__volume-slider"></div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
