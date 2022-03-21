@@ -1,46 +1,19 @@
-# Getting Started with Create React App
+# Немного о проделанной работе.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Сделал страницы:
+    с поиском (она же начальная),
+    результатом поиска (для перехода нажать на лупу),
+    пример страницы артиста (клики по многим из (или по всем) oxxxymiron'ов ведут на нее),
+    пример страницы альбома (второй mixxxtape)
 
-## Available Scripts
+Также в планах было сделать мою медиатеку, пустой плейлист и страницу входа, но не рассчитал свои силы
 
-In the project directory, you can run:
+Установку приложения, главную страницу, разные подборки и подкасты решил не реализовывать (хотя кнопки на сайдбаре пока оставил)
 
-### `npm start`
+Хотелось бы услышать совет по дальнейшим действиям (у меня два варианта: доделывать выше сказанное или наоборот сократить уже готовый материал (например, убрать кнопку лайка с страницы с альбомом, потому что в моем представлении это часть функционала моей медиатеки и тд))
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Возможностей спотифай АПИ, к сожалению, сейчас я не знаю, по этой причине возможно тоже стоит что то выкинуть или наоборот добавить
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Ну и конечно, хочу услышать насколько я хорошо сверстал и как было бы лучше. Спасибо! :)
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+PS Не смог найти шрифта "Спотифай кириллица" буду рад если он у вас есть и вы им поделитесь.

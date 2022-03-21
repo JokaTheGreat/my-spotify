@@ -1,0 +1,113 @@
+/* search-result */
+
+.search-result {
+    display: grid;
+    grid-template-rows: 260px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-auto-rows: minmax(260px, 1fr);
+    gap: 32px 24px;
+    padding: 10px 30px 30px 30px;
+}
+
+.best-search-result {
+    grid-column: 1 / 3;
+}
+
+.best-search-result__title {
+    font-size: 22px;
+    padding-bottom: 15px;
+}
+
+.best-search-result__container {
+    padding: 20px;
+    background-color: #181818;
+    border-radius: 5px;
+    position: relative;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.best-search-result__img-container {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 15px 10px rgba(0, 0, 0, .15);
+}
+
+.best-search-result__img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.best-search-result__artist {
+    color: #fff;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: normal;
+    padding-top: 15px;
+}
+
+.best-search-result__subtitle {
+    color: #fff;
+    background-color: #131313;
+    border-radius: 50px;
+    width: fit-content;
+    padding: 5px 10px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
+.best-search-result__container:hover {
+    background-color: #282828;
+}
+
+.best-search-result__container:hover .best-search-result__subtitle {
+    background-color: #202020;
+}
+
+.best-search-result__container:hover .best-search-result__play {
+    opacity: 1;
+    bottom: 10%;
+}
+
+.tracks-search-result {
+    grid-column: 3 / -1;
+}
+
+@media (max-width: 1115px) {
+    .search-result {
+        grid-template-rows: 260px 260px;
+    }
+    .tracks-search-result {
+        grid-column: 1 / -1;
+    }
+}
+
+.tracks-search-result__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.tracks-search-result__title {
+    color: #fff;
+}
+
+.tracks-search-result__show-all {
+    text-transform: uppercase;
+    color: #B3B3B3;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
