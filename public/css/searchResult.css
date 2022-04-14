@@ -20,7 +20,7 @@
 
 .best-search-result__container {
     padding: 20px;
-    background-color: #181818;
+    background-color: var(--spotify-main-black);
     border-radius: 5px;
     position: relative;
     transition: .3s;
@@ -47,7 +47,7 @@
 }
 
 .best-search-result__artist {
-    color: #fff;
+    color: white;
     font-size: 32px;
     letter-spacing: -1px;
     line-height: normal;
@@ -55,8 +55,8 @@
 }
 
 .best-search-result__subtitle {
-    color: #fff;
-    background-color: #131313;
+    color: white;
+    background-color: var(--spotify-main-black);
     border-radius: 50px;
     width: fit-content;
     padding: 5px 10px;
@@ -67,11 +67,11 @@
 }
 
 .best-search-result__container:hover {
-    background-color: #282828;
+    background-color: var(--spotify-extra-black);
 }
 
 .best-search-result__container:hover .best-search-result__subtitle {
-    background-color: #202020;
+    background-color: var(--spotify-extra-black);
 }
 
 .best-search-result__container:hover .best-search-result__play {
@@ -100,12 +100,12 @@
 }
 
 .tracks-search-result__title {
-    color: #fff;
+    color: white;
 }
 
 .tracks-search-result__show-all {
     text-transform: uppercase;
-    color: #B3B3B3;
+    color: var(--spotify-main-grey);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 1px;

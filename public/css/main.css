@@ -14,6 +14,14 @@
 	font-style: normal;
 }
 
+:root {
+    --spotify-main-black: #121212;
+    --spotify-extra-black: #282828;
+    --spotify-dark-grey: #535353;
+    --spotify-main-grey: #B3B3B3;
+    --spotify-green: #1ed760;
+}
+
 /* Класс temporary понадобился для демонстрационной версии верстки 
    (иконка поиска и иконка очистки (в headere) обернуты в ссылки с этим классом)*/
 
@@ -35,13 +43,13 @@ h3, h2, h1 {
 }
 
 .main::-webkit-scrollbar-track {
-    background-color: #121212;
+    background-color: var(--spotify-main-black);
     margin-block: 1px;
 }
 
 .main::-webkit-scrollbar-thumb {
-    background-color: #5A5A5A;
-    border: 1px solid #121212;
+    background-color: var(--spotify-dark-grey);
+    border: 1px solid var(--spotify-main-black);
 }
 
 .link {
@@ -49,11 +57,11 @@ h3, h2, h1 {
 }
 
 .link_grey {
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .link_white {
-    color: #fff;
+    color: white;
 }
 
 .body {
@@ -75,8 +83,8 @@ h3, h2, h1 {
     font-size: 12px;
     font-weight: 700;
     
-    background-color: #000;
-    color: #B3B3B3;
+    background-color: black;
+    color: var(--spotify-main-grey);
     position: relative;
     overflow: hidden;
 }
@@ -102,7 +110,7 @@ h3, h2, h1 {
     height: 1px;
     width: 100%;
     border-radius: 1px;
-    background-color: #282828;
+    background-color: var(--spotify-extra-black);
     margin-top: 15px;
 }
 
@@ -113,7 +121,7 @@ h3, h2, h1 {
 }
 
 .menu__link {
-    color: #B3B3B3;
+    color: var(--spotify-main-grey);
     display: flex;
     align-items: center;
     transition: .5s;
@@ -122,15 +130,15 @@ h3, h2, h1 {
 }
 
 .menu__link:hover {
-    color: #fff;
+    color: white;
 }
 
 .menu__link:hover .menu__img {
-    fill: #fff;
+    fill: white;
 }
 
 .menu__link:hover .create-playlist-img {
-    background-color: #fff;
+    background-color: white;
 }
 
 .menu__link:hover .favorite-tracks-img {
@@ -138,15 +146,15 @@ h3, h2, h1 {
 }
 
 .menu__link_active {
-    color: #fff;
+    color: white;
 }
 
 .menu__link_active .menu__img {
-    fill: #fff;
+    fill: white;
 }
 
 .menu__img {
-    fill: #b3b3b3;
+    fill: var(--spotify-main-grey);
     margin-right: 15px;
 
     transition: .5s;
@@ -155,7 +163,7 @@ h3, h2, h1 {
 .create-playlist-img {
     width: 24px;
     height: 24px;
-    background-color: #b3b3b3;
+    background-color: var(--spotify-main-grey);
     border-radius: 1px;
     position: relative;
 }
@@ -164,7 +172,7 @@ h3, h2, h1 {
     height: 45%;
     width: 1px;
     border-radius: 1px;
-    background-color: #000;
+    background-color: black;
     position: absolute;
     left: 50%;
     top: 27.5%;
@@ -186,7 +194,7 @@ h3, h2, h1 {
 }
 
 .favorite-tracks-img__heart {
-    fill: #fff;
+    fill: white;
 }
 
 .download-img {
@@ -196,10 +204,10 @@ h3, h2, h1 {
 /* main */
 
 .main {
-    color: #fff;
+    color: white;
     grid-area: main;
     overflow-y: scroll;
-    background-color: #121212;
+    background-color: var(--spotify-main-black);
 }
 
 /* header */
@@ -214,7 +222,7 @@ h3, h2, h1 {
 .header_sticky {
     position: sticky;
     top: 0;
-    background-color: #121212;
+    background-color: var(--spotify-main-black);
 }
 
 .header_fixed {
@@ -227,10 +235,10 @@ h3, h2, h1 {
 }
 
 .page-pointers__arrow {
-    background-color: #050505;
+    background-color: black;
     padding: 4px;
     border-radius: 50%;
-    fill: #fff;
+    fill: white;
     opacity: .7;
     cursor: not-allowed;
 
@@ -247,7 +255,7 @@ h3, h2, h1 {
 }
 
 .search-form {
-    background-color: #fff;
+    background-color: white;
     border-radius: 100px;
     padding: 8px 12px;
 
@@ -275,7 +283,7 @@ h3, h2, h1 {
 
 .account {
     padding: 3px;
-    background-color: #050505;
+    background-color: black;
     border-radius: 100px;
     display: flex;
     align-items: center;
@@ -294,11 +302,11 @@ h3, h2, h1 {
 }
 
 .account:hover {
-    background-color: #282828;
+    background-color: var(--spotify-extra-black);
 }
 
 .account__icon-container {
-    background-color: #535353;
+    background-color: var(--spotify-dark-grey);
     border-radius: 50%;
     height: 27px;
     width: 27px;
@@ -306,7 +314,7 @@ h3, h2, h1 {
 }
 
 .account__icon {
-    fill: #fff;
+    fill: white;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -326,7 +334,7 @@ h3, h2, h1 {
 }
 
 .account__arrow {
-    fill: #fff;
+    fill: white;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -381,7 +389,7 @@ h3, h2, h1 {
     font-weight: 700;
     letter-spacing: 1px;    
     text-transform: uppercase;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .content-items__show-all:hover {
@@ -404,7 +412,7 @@ h3, h2, h1 {
 }
 
 .content-item__inner {
-    background-color: #181818;
+    background-color: var(--spotify-main-black);
     border-radius: 5px;
     width: 100%;
     height: 100%;
@@ -413,7 +421,7 @@ h3, h2, h1 {
 }
 
 .content-item__inner:hover {
-    background-color: #282828;
+    background-color: var(--spotify-extra-black);
 }
 
 .content-item__inner:hover .play-button {
@@ -458,11 +466,11 @@ h3, h2, h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    fill: #fff;
+    fill: white;
 }
 
 .content-item__name {
-    color: #fff;
+    color: white;
     padding-top: 20px;
     font-size: 16px;
     line-height: normal;
@@ -472,17 +480,17 @@ h3, h2, h1 {
 }
 
 .content-item__name .link {
-    color: #fff;
+    color: white;
 }
 
 .content-item__subtitle {
     font-size: 14px;
     font-weight: 500;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .content-item__subtitle .link {
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .content-item__delete {
@@ -508,7 +516,7 @@ h3, h2, h1 {
 }
 
 .content-item__delete-svg {
-    stroke: #fff;
+    stroke: white;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -516,15 +524,15 @@ h3, h2, h1 {
 }
 
 .artist-img-default {
-    fill: #b3b3b3;
-    stroke: #b3b3b3;
+    fill: var(--spotify-main-grey);
+    stroke: var(--spotify-main-grey);
 }
 
 /* play button */
 
 .play-button {
     opacity: 0;
-    background-color: #1ED760;
+    background-color: var(--spotify-green);
     border-radius: 50%;
     height: 48px;
     width: 48px;
@@ -542,7 +550,7 @@ h3, h2, h1 {
 }
 
 .play-button_block {
-    background-color: #1ED760;
+    background-color: var(--spotify-green);
     border-radius: 50%;
     height: 58px;
     width: 58px;
@@ -592,7 +600,7 @@ h3, h2, h1 {
 }
 
 .track:hover .track__artist {
-    color: #fff;
+    color: white;
 }
 
 .track:hover .track__favourite {
@@ -621,7 +629,7 @@ h3, h2, h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .track__play {
@@ -630,12 +638,12 @@ h3, h2, h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    fill: #fff;
+    fill: white;
 }
 
 .track__cover {
     overflow: hidden;
-    background-color: #b3b3b3;
+    background-color: var(--spotify-main-grey);
     height: 40px;
     width: 40px;
     margin-right: 10px;
@@ -683,10 +691,10 @@ h3, h2, h1 {
 }
 
 .track__explicit-content {
-    color: #000;
+    color: black;
     font-size: 8px;
     font-weight: 100;
-    background-color: #a9a9a9;
+    background-color: var(--spotify-main-grey);
     border-radius: 3px;
     width: 15px;
     height: 15px;
@@ -697,14 +705,14 @@ h3, h2, h1 {
 
 .track__artist {
     line-height: normal;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
     font-size: 14px;
 }
 
 .track__artist-divider {
     font-size: 14px;
     line-height: normal;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
     white-space: pre;
 }
 
@@ -720,7 +728,7 @@ h3, h2, h1 {
 }
 
 .track__listeners {
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .track__right {
@@ -730,25 +738,25 @@ h3, h2, h1 {
 
 .track__favourite {
     opacity: 0;
-    fill: #C0C0C0;
+    fill: var(--spotify-main-grey);
 }
 
 .track__favourite:hover {
-    fill: #fff;
+    fill: white;
 }
 
 .track__favourite_active {
-    fill: #1DB954;
+    fill: var(--spotify-green);
 }
 
 .track__length {
     padding: 0 20px;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .track__other {
     opacity: 0;
-    fill: #fff;
+    fill: white;
 }
 
 /* player */
@@ -758,7 +766,7 @@ h3, h2, h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #181818;
+    background-color: var(--spotify-main-black);
     overflow: hidden;
 }
 
@@ -779,14 +787,14 @@ h3, h2, h1 {
 }
 
 .controls__btn {
-    fill: #535353;
+    fill: var(--spotify-dark-grey);
 }
 
 .controls__btn-container {
     height: 32px;
     width: 32px;
     margin: 1px;
-    background-color: #535353;
+    background-color: var(--spotify-dark-grey);
     border-radius: 50%;
     transition: .1s;
     position: relative;
@@ -810,7 +818,7 @@ h3, h2, h1 {
 }
 
 .controls__btn_black {
-    fill: #000;
+    fill: black;
 }
 
 .progress-bar {
@@ -825,7 +833,7 @@ h3, h2, h1 {
     width: 500px;
     height: 4px;
     border-radius: 2px;
-    background-color: #535353;
+    background-color: var(--spotify-dark-grey);
     margin: 15px 5px;
 }
 
@@ -839,12 +847,12 @@ h3, h2, h1 {
 }
 
 .side-controls__btn {
-    fill: #B3B3B3;
+    fill: var(--spotify-main-grey);
     margin: 0 8px;
 }
 
 .side-controls__btn:hover {
-    fill: #fff;
+    fill: white;
 }
 
 .side-controls__volume {
@@ -857,21 +865,21 @@ h3, h2, h1 {
     width: 94px;
     height: 4px;
     border-radius: 2px;
-    background-color: #b3b3b3;
+    background-color: var(--spotify-main-grey);
 }
 
 .side-controls__volume-slider {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: white;
     position: absolute;
     left: 95%;
     display: none;
 }
 
 .side-controls__volume:hover .side-controls__volume-bar {
-    background-color: #1DB954;
+    background-color: var(--spotify-green);
 }
 
 .side-controls__volume:hover .side-controls__volume-slider {

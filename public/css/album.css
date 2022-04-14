@@ -3,7 +3,7 @@
 .album-page-header {
     padding: 70px 30px 20px 30px;
     height: 340px;
-    background: linear-gradient(#555555, #2B2B2B);
+    background: linear-gradient(var(--spotify-dark-grey), var(--spotify-extra-black));
     position: relative;
 }
 
@@ -89,11 +89,11 @@
 
 .album-page-header__album-length {
     padding-left: 5px;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .album-page__track-list {
-    background: linear-gradient(#222222, #121212 220px);
+    background: linear-gradient(var(--spotify-extra-black), var(--spotify-main-black) 220px);
 }
 
 .track-list {
@@ -107,26 +107,26 @@
 
 .album-page__favourite {
     margin-left: 30px;
-    fill: #A5A5A5;
+    fill: var(--spotify-main-grey);
 }
 
 .album-page__favourite:hover {
-    fill: #fff;
+    fill: white;
 }
 
 .album-page__other {
     margin-left: 30px;
-    fill: #A5A5A5;
+    fill: var(--spotify-main-grey);
 }
 
 .album-page__other:hover {
-    fill: #fff;
+    fill: white;
 }
 
 .track-list__header {
     padding: 30px 45px 5px 25px;
     margin-bottom: 20px;
-    border-bottom: #303030 solid 1px;
+    border-bottom: var(--spotify-extra-black) solid 1px;
     display: flex;
     justify-content: space-between;
     top: 30px;
@@ -138,7 +138,7 @@
 }
 
 .track-list__number {
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .track-list__name {
@@ -146,17 +146,17 @@
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 1px;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
 }
 
 .track-list__length {
-    fill: #b3b3b3;
+    fill: var(--spotify-main-grey);
 }
 
 .track-list__footer {
     padding: 30px 0 50px 0;
     display: flex;
     flex-direction: column;
-    color: #b3b3b3;
+    color: var(--spotify-main-grey);
     font-size: 11px;
 }
