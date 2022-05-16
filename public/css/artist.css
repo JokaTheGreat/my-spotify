@@ -2,9 +2,42 @@
 
 .artist-page__header {
     padding: 150px 30px 30px 30px;
-    background: url('../imgs/example/bigoxxx.jpg') center 15% no-repeat, rgba(0, 0, 0, .15);
     background-blend-mode: overlay;
     background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(transparent 0, rgba(0, 0, 0, .5) 100%), var(--spotify-dark-grey);
+}
+
+.artist-page__photo-wrapper {
+    height: 232px;
+    width: 232px;
+    min-width: 192px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 25px 20px rgba(0, 0, 0, .15);
+}
+
+@media (max-width:1280px) {
+    .artist-page__photo-wrapper {
+        height: 192px;
+        width: 192px;
+    }
+}
+
+.artist-page__photo {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.artist-page__info {
+    padding-left: 20px;
 }
 
 .upprove-sign {
@@ -33,7 +66,7 @@
 }
 
 .artist-page__popular-tracks {
-    background: linear-gradient(var(--spotify-extra-black), var(--spotify-main-black) 220px);
+    background: linear-gradient(rgba(0, 0, 0, 0.6), var(--spotify-main-black) 220px), var(--spotify-extra-black);
     padding: 20px 30px 50px 30px;
 }
 

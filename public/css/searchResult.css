@@ -20,7 +20,7 @@
 
 .best-search-result__container {
     padding: 20px;
-    background-color: var(--spotify-main-black);
+    background-color: #181818;
     border-radius: 5px;
     position: relative;
     transition: .3s;
@@ -46,31 +46,38 @@
     object-fit: cover;
 }
 
-.best-search-result__artist {
+.best-search-result__title {
     color: white;
     font-size: 32px;
     letter-spacing: -1px;
     line-height: normal;
-    padding-top: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.best-search-result__extra-info {
+    font-size: 12px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
 }
 
 .best-search-result__subtitle {
+    color: var(--spotify-main-grey);
+    padding-right: 10px;
+}
+
+.best-search-result__type {
     color: white;
     background-color: var(--spotify-main-black);
     border-radius: 50px;
     width: fit-content;
     padding: 5px 10px;
-    font-size: 12px;
-    letter-spacing: 1px;
     text-transform: uppercase;
-    transition: .3s;
 }
 
 .best-search-result__container:hover {
-    background-color: var(--spotify-extra-black);
-}
-
-.best-search-result__container:hover .best-search-result__subtitle {
     background-color: var(--spotify-extra-black);
 }
 
