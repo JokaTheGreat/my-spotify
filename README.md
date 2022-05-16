@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Немного о проделанной работе(JS часть).
+Оживил ранее сверстанные страницы.
+Добавил базовые функции плеера.
+Написал документцию к функциям.
+Из красивого - шапка страницы артиста и альбома подстраивается под обложку.
+На этом все.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+В планах опять было намного больше(хотя может зря...): 
+ - допилить плеер: случайный порядок песен, повтор трека, просмотр очереди треков.
+ - забыл добавить try catch'и.
+ - повторить эквалайзер с spotify(очень красивый...).
+ - оживить историю поиска.
+ - оживить недавно прослушанное.
+ - сделать что-то с sidebar'ом(а то он до сих пор бесполезный...).
+ - добавить функционал предыдущей и следующей страницы.
+ - да и вообще еще много чего...
 
-## Available Scripts
+Ну да ладно. Жду ваших правок. Спасибо! :)
 
-In the project directory, you can run:
+# Немного о проделанной работе(HTML часть).
 
-### `npm start`
+Сделал страницы:
+    с поиском (она же начальная),
+    результатом поиска (для перехода нажать на лупу),
+    пример страницы артиста (клики по многим из (или по всем) oxxxymiron'ов ведут на нее),
+    пример страницы альбома (второй mixxxtape)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Также в планах было сделать мою медиатеку, пустой плейлист и страницу входа, но не рассчитал свои силы
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Установку приложения, главную страницу, разные подборки и подкасты решил не реализовывать (хотя кнопки на сайдбаре пока оставил)
 
-### `npm test`
+Хотелось бы услышать совет по дальнейшим действиям (у меня два варианта: доделывать выше сказанное или наоборот сократить уже готовый материал (например, убрать кнопку лайка с страницы с альбомом, потому что в моем представлении это часть функционала моей медиатеки и тд))
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Возможностей спотифай АПИ, к сожалению, сейчас я не знаю, по этой причине возможно тоже стоит что то выкинуть или наоборот добавить
 
-### `npm run build`
+Ну и конечно, хочу услышать насколько я хорошо сверстал и как было бы лучше. Спасибо! :)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+PS Не смог найти шрифта "Спотифай кириллица" буду рад если он у вас есть и вы им поделитесь.
