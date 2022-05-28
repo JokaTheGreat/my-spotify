@@ -1,4 +1,4 @@
-import { loadTrack } from './../player.js';
+import { loadTracksQuery } from './../player.js';
 import { timeToString } from "../time.js";
 import { arrayToSpanArray } from "../array.js";
 
@@ -221,7 +221,7 @@ function parseTrackItems(tracksData, includeTracksCover = true, includeTracksNum
                 return;
             }
 
-            loadTrack(i);
+            loadTracksQuery(i);
         });
 
         trackItems.push(track);

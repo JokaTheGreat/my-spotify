@@ -1,7 +1,7 @@
 import { albumPage } from './albumPage.js';
 import { artistPage } from './artistPage.js';
 import { parseItemCover } from './itemCover.js';
-import { loadTrack } from './../player.js';
+import { loadTracksQuery } from './../player.js';
 
 /**
  * Создает секцию с лучший результатом для страницы поиска.
@@ -53,7 +53,7 @@ export function parseBestSearchResult(searchData) {
         subtitle = firstTrack.artists[0].name;
         type = 'Трек';
         
-        bestResultBody.addEventListener('click', () => loadTrack(0));
+        bestResultBody.addEventListener('click', () => loadTracksQuery(0));
     }
     else {
         return bestResult;

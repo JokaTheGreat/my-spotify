@@ -1,10 +1,11 @@
 import { CLIENT_ID, CLIENT_SECRET } from './properties.js';
 import { search } from './components/searchPage.js';
-import { nextTrack, prevTrack, togglePlay, setTrackTime, setVolume, MAX_AUDIO_VOLUME } from './player.js';
+import { nextTrack, prevTrack, togglePlay, setTrackTime, setVolume, MAX_AUDIO_VOLUME, loopTrackToggle, toggleRandomTrackOrder } from './player.js';
+import { somethingWentWrongAlert } from './alert.js';
 
 /**
  * Получает токен с сервера Spotify и сохраняет его в localStorage.
- * @returns {number} время жизни токена (в секундах). От 0 до infinity. Обычное значение = 3600.
+ * @returns {Promise<number | null>} время жизни токена (в секундах). От 0 до infinity. Обычное значение = 3600.
  */
 
 async function setToken() {
@@ -19,10 +20,14 @@ async function setToken() {
       '&client_id=' + CLIENT_ID +
       '&client_secret=' + CLIENT_SECRET),
   });
+  if (!response.ok) {
+    return null;
+  }
+
   const data = await response.json();
   localStorage.setItem('token', data.access_token);
 
-  return data.expires_in;
+  return data?.expires_in;
 }
 
 /**
@@ -31,10 +36,18 @@ async function setToken() {
 
 async function refreshTokenSetup() {
   const defaultRefreshTimeMS = (3600 - 5 * 60) * 1000; //55 minutes
-  let expiresInMS = await setToken() * 1000;
+  const tokenRefreshTime = await setToken();
+  if (!tokenRefreshTime) {
+    return null;
+  }
+  const expiresInMS = tokenRefreshTime * 1000;
 
   const refreshToken = async () => {
-    expiresInMS = await setToken() * 1000;
+    const tokenRefreshTime = await setToken();
+    if (!tokenRefreshTime) {
+      return null;
+    }
+    const expiresInMS = tokenRefreshTime * 1000;
     setTimeout(refreshToken, expiresInMS || defaultRefreshTimeMS);
   }
 
@@ -87,11 +100,6 @@ function addPlayerFunctionality() {
     nextTrack();
   };
 
-  /*
-  const randomTracksOrder = () => {
-
-  };*/
-
   audio.addEventListener('ended', normalTracksOrder);
 
   const playButton = document.getElementsByClassName('controls__btn-container')[0];
@@ -128,21 +136,33 @@ function addPlayerFunctionality() {
       setVolume(MAX_AUDIO_VOLUME);
     }
   });
-  /*
-  const mixButton = document.getElementsByClassName('mix-button')[0];
-  mixButton.addEventListener('click', () => {
-    if (mixButton.classList.contains('mix-button_active')) {
-      audio.removeEventListener('ended', randomTracksOrder);
+
+  const repeatButton = document.getElementsByClassName('repeat-button')[0];
+  repeatButton.addEventListener('click', () => {
+    if (!repeatButton.classList.contains('controls__btn_active')) {
+      return;
+    }
+
+    if (repeatButton.classList.contains('repeat-button_active')) {
       audio.addEventListener('ended', normalTracksOrder);
     }
     else {
       audio.removeEventListener('ended', normalTracksOrder);
-      audio.addEventListener('ended', randomTracksOrder);
     }
 
+    loopTrackToggle();
+    repeatButton.classList.toggle('repeat-button_active');
+  });
+
+  const mixButton = document.getElementsByClassName('mix-button')[0];
+  mixButton.addEventListener('click', () => {
+    if (!mixButton.classList.contains('controls__btn_active')) {
+      return;
+    }
+
+    toggleRandomTrackOrder();
     mixButton.classList.toggle('mix-button_active');
   });
-  */
 }
 
 /**
@@ -151,7 +171,11 @@ function addPlayerFunctionality() {
  */
 
 async function launchApp() {
-  await refreshTokenSetup();
+  if (await refreshTokenSetup() === null) {
+    somethingWentWrongAlert();
+    return;
+  }
+
   addSearchFunctionality();
   addPlayerFunctionality();
 }
