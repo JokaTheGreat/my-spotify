@@ -16,6 +16,7 @@
 
 :root {
     --spotify-main-black: #121212;
+    --spotify-light-main-black: #181818;
     --spotify-extra-black: #282828;
     --spotify-dark-grey: #535353;
     --spotify-main-grey: #B3B3B3;
@@ -421,7 +422,7 @@ h3, h2, h1 {
 }
 
 .content-item__inner {
-    background-color: #181818;
+    background-color: var(--spotify-light-main-black);
     border-radius: 5px;
     width: 100%;
     height: 100%;

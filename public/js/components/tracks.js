@@ -10,15 +10,15 @@ import { arrayToSpanArray } from "../array.js";
 function parseSearcPageTracksHeader() {
     const tracksHeader = document.createElement('div');
     tracksHeader.className = 'tracks-search-result__header';
-    tracksHeader.innerHTML = `
+    tracksHeader.insertAdjacentHTML('beforeend', `
         <h2 class="tracks-search-result__title">Треки</h2>
-    `;
+    `);
 
     const showAllTag = document.createElement('span');
     showAllTag.className = 'content-items__show-all';
-    showAllTag.innerHTML = 'Все';
+    showAllTag.insertAdjacentText('beforeend', 'Все');
 
-    showAllTag.addEventListener('click', () => { console.log('Все') });
+    showAllTag.addEventListener('click', () => { /* будущий функционал */ });
 
     tracksHeader.append(showAllTag);
 
@@ -33,7 +33,7 @@ function parseSearcPageTracksHeader() {
 function parseAlbumPageTracksHeader() {
     const tracksHeader = document.createElement('div');
     tracksHeader.className = 'track-list__header';
-    tracksHeader.innerHTML = `
+    tracksHeader.insertAdjacentHTML('beforeend', `
         <div class="track-list__header-left">
             <div class="track-list__number">#</div>
             <div class="track-list__name">Название</div>
@@ -43,11 +43,11 @@ function parseAlbumPageTracksHeader() {
                 <use xlink:href="imgs/icons/icons.svg#clock"></use>
             </svg>
         </div>
-    `;
+    `);
 
     const tracksControls = document.createElement('div');
     tracksControls.className = 'track-list__controls';
-    tracksControls.innerHTML = `
+    tracksControls.insertAdjacentHTML('beforeend', `
         <div class="play-button__container">
             <div class="play-button_block">
                 <svg height="30px" width="30px" class="play-button__svg">
@@ -61,7 +61,7 @@ function parseAlbumPageTracksHeader() {
         <svg height="24px" width="24px" class="album-page__other">
             <use xlink:href="imgs/icons/icons.svg#other"></use>
         </svg>
-    `;
+    `);
 
     return [tracksControls, tracksHeader];
 }
@@ -74,7 +74,7 @@ function parseAlbumPageTracksHeader() {
 function parseArtistPageTracksHeader() {
     const artistPageControls = document.createElement('div');
     artistPageControls.className = 'artist-page__controls';
-    artistPageControls.innerHTML = `
+    artistPageControls.insertAdjacentHTML('beforeend', `
         <div class="play-button__container">
             <div class="play-button_block">
                 <svg height="30px" width="30px" class="play-button__svg">
@@ -86,11 +86,11 @@ function parseArtistPageTracksHeader() {
         <svg height="24px" width="24px" class="artist-page__other">
             <use xlink:href="imgs/icons/icons.svg#other"></use>
         </svg>
-    `;
+    `);
 
     const tracksTitle = document.createElement('h2');
     tracksTitle.className = 'popular-tracks__title';
-    tracksTitle.innerHTML = 'Популярные треки';
+    tracksTitle.insertAdjacentText('beforeend', 'Популярные треки');
 
     return [artistPageControls, tracksTitle];
 }
@@ -105,7 +105,7 @@ function parseArtistPageTracksHeader() {
  * продолжительность трека в миллисекундах(duration_ms: number), 18+(explicit: boolean).
  */
 
-function saveTracksDataToLocalStorage(tracksData) {
+function saveTracksDataToLocalStorage(tracksData = []) {
     const tracksToLocalStorage = tracksData.map((item) => {
         return {
             coverURL: item.album.images[0].url,
@@ -145,7 +145,7 @@ function parseTrackItems(tracksData, includeTracksCover = true, includeTracksNum
         if (trackData.explicit) {
             const explicitTag = document.createElement('span');
             explicitTag.className = 'track__explicit-content';
-            explicitTag.innerHTML = 'E';
+            explicitTag.insertAdjacentText('beforeend', 'E');
 
             trackExtraInfo.append(explicitTag);
         }
@@ -162,12 +162,12 @@ function parseTrackItems(tracksData, includeTracksCover = true, includeTracksNum
         trackPlayButton.className = 'track__play';
         trackPlayButton.setAttribute('height', '16px');
         trackPlayButton.setAttribute('width', '16px');
-        trackPlayButton.innerHTML = `<use xlink:href="imgs/icons/icons.svg#play"></use>`;
+        trackPlayButton.insertAdjacentHTML('beforeend', `<use xlink:href="imgs/icons/icons.svg#play"></use>`);
 
         if (includeTracksNumber) {
             const trackNumber = document.createElement('span');
             trackNumber.className = 'track__number';
-            trackNumber.innerHTML = i + 1;
+            trackNumber.insertAdjacentText('beforeend', i + 1);
 
             trackNumberContainer.append(trackNumber);
             trackNumberContainer.append(trackPlayButton);
@@ -194,7 +194,7 @@ function parseTrackItems(tracksData, includeTracksCover = true, includeTracksNum
 
         const durationString = timeToString(trackData.duration_ms, false);
 
-        track.innerHTML = `
+        track.insertAdjacentHTML('beforeend', `
             <div class="track__left">
                 ${includeTracksNumber ? trackNumberContainer.outerHTML : ''}
                 ${includeTracksCover ? trackCoverContainer.outerHTML : ''}
@@ -211,7 +211,7 @@ function parseTrackItems(tracksData, includeTracksCover = true, includeTracksNum
                     <use xlink:href="imgs/icons/icons.svg#other"></use>
                 </svg>
             </div>
-        `;
+        `);
 
         const trackInfo = track.children[0].children[track.children[0].children.length - 1];
         trackInfo.append(trackExtraInfo);
@@ -264,7 +264,7 @@ export function parseTracks(tracksData, includeTracksCover = true, includeTracks
 
     if (!includeTracksCover && includeTracksNumber) { //albumPage
         tracks.className = 'album-page__track-list';
-        tracks.innerHTML = `<div class="track-list"></div>`;
+        tracks.insertAdjacentHTML('beforeend', `<div class="track-list"></div>`);
 
         tracks.children[0].append(...parseAlbumPageTracksHeader());
         tracks.children[0].append(...parseTrackItems(tracksData, includeTracksCover, includeTracksNumber));

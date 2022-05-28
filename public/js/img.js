@@ -15,7 +15,7 @@ export function createImg(coverData) {
 /**
  * Вычисляет средний цвет картинки по определенному алгоритму(фильтрация черного и белого цветов).
  * @param {object} img Объект Image с загруженными данными(эту функцию стоит вызывать только в Image.onload). 
- * @returns {string} Средний цвет картинки в виде rgb строки.
+ * @returns {string | null} Средний цвет картинки в виде rgb строки. Либо null если на картинке оказалось много черных или белых цветов.
  */
 
 export function getMiddleColor(img) {

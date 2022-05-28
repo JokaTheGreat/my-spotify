@@ -11,7 +11,7 @@ export function arrayToString(stringArray, field) {
     return stringArray.reduce((result, item, i) => {
         result += item[field];
         if (i !== stringArray.length - 1) {
-            result += ', ';
+            result += ',';
         }
 
         return result;
@@ -39,10 +39,10 @@ export function arrayToSpanArray(itemsData, spanClassList = []) {
     for (const [i, item] of itemsNames.entries()) {
         const itemTag = document.createElement('span');
         itemTag.classList.add('link', ...spanClassList);
-        itemTag.innerHTML = item;
+        itemTag.insertAdjacentText('beforeend', item);
 
         if (i !== itemsNames.length - 1) {
-            itemTag.innerHTML += ', ';
+            itemTag.insertAdjacentText('beforeend', ', ');
         }
 
         itemTag.addEventListener('click', () => artistPage(itemsData[i].id));
@@ -59,7 +59,7 @@ export function arrayToSpanArray(itemsData, spanClassList = []) {
  * @returns {Array<object>} Массив объектов с уникальным значением name.
  */
 
-export function getUnicElements(itemsArray) {
+export function getUnicElementsByName(itemsArray) {
     const itemNames = itemsArray.map(item => item.name);
 
     return itemsArray.filter((item, i) => {

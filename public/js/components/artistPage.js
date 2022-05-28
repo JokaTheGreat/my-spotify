@@ -1,83 +1,99 @@
 import { parseTracks } from './tracks.js';
-import { request } from '../request.js';
+import { request, REQUESTED_ITEMS_FOR_PAGE_LIMIT, REQUESTED_ITEMS_FOR_PAGE_LIMIT_WITH_DUBLICATS } from '../request.js';
 import { scrollToTop } from '../scroll.js';
-import { getUnicElements } from '../array.js';
+import { getUnicElementsByName } from '../array.js';
 import { parseContentItems } from './contentItems.js';
 import { getMiddleColor, createImg } from '../img.js';
+import { serverNoDataAlert, somethingWentWrongAlert } from '../alert.js';
 
 /**
  * Запрашивает данные исполнителя с сервера Spotify.
  * @param {string} aristId Идентификатор исполнителя на сервере Spotify.
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getArtistData(artistId) {
     const url = 'https://api.spotify.com/v1/artists/' + artistId;
 
     const response = await request(url);
-    const data = await response.json();
+    if (!response.ok) {
+        return null;
+    }
 
+    const data = await response.json();
     return data;
 }
 
 /**
  * Запрашивает самые популярные треки исполнителя с сервера Spotify.
  * @param {string} aristId Идентификатор исполнителя на сервере Spotify.
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getArtistsTopTracks(artistId) {
     const url = 'https://api.spotify.com/v1/artists/' + artistId + '/top-tracks?market=ES';
 
     const response = await request(url);
-    const data = await response.json();
+    if (!response.ok) {
+        return null;
+    }
 
-    return data;
+    const data = await response.json();
+    return data?.tracks;
 }
 
 /**
  * Запрашивает альбомы исполнителя с сервера Spotify.
  * @param {string} aristId Идентификатор исполнителя на сервере Spotify.
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getArtistsAlbums(artistId) {
-    const url = 'https://api.spotify.com/v1/artists/' + artistId + '/albums?' + 'include_groups=album&' + 'limit=12';
+    const url = 'https://api.spotify.com/v1/artists/' + artistId + '/albums?' + 'include_groups=album&' + 'limit=' + REQUESTED_ITEMS_FOR_PAGE_LIMIT_WITH_DUBLICATS;
 
     const response = await request(url);
-    const data = await response.json();
+    if (!response.ok) {
+        return null;
+    }
 
-    return data;
+    const data = await response.json();
+    return data?.items;
 }
 
 /**
  * Запрашивает синглы и мини-альбомы исполнителя с сервера Spotify.
  * @param {string} aristId Идентификатор исполнителя на сервере Spotify.
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getArtistsSingles(artistId) {
-    const url = 'https://api.spotify.com/v1/artists/' + artistId + '/albums?' + 'include_groups=single&' + 'limit=12';
+    const url = 'https://api.spotify.com/v1/artists/' + artistId + '/albums?' + 'include_groups=single&' + 'limit=' + REQUESTED_ITEMS_FOR_PAGE_LIMIT_WITH_DUBLICATS;
 
     const response = await request(url);
-    const data = await response.json();
+    if (!response.ok) {
+        return null;
+    }
 
-    return data;
+    const data = await response.json();
+    return data?.items;
 }
 
 /**
  * Запрашивает похожих исполнителей с сервера Spotify.
  * @param {string} aristId Идентификатор исполнителя на сервере Spotify.
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getRelatedArtists(artistId) {
     const url = 'https://api.spotify.com/v1/artists/' + artistId + '/related-artists';
 
     const response = await request(url);
-    const data = await response.json();
+    if (!response.ok) {
+        return null;
+    }
 
-    return data;
+    const data = await response.json();
+    return data?.artists.slice(0, REQUESTED_ITEMS_FOR_PAGE_LIMIT);
 }
 
 /**
@@ -110,15 +126,12 @@ function setHeaderColor(coverData) {
  */
 
 function setArtistPage(artistData, topTracksData, albumsData, singlesData, relatedArtistsData) {
-    const root = document.getElementsByClassName('content')[0] ||
-        document.getElementsByClassName('search-result')[0] ||
-        document.getElementsByClassName('album-page')[0] ||
-        document.getElementsByClassName('artist-page')[0];
+    const root = document.getElementsByClassName('main')[0].children[1];
     root.className = 'artist-page';
 
     const artistPageHeader = document.createElement('section');
     artistPageHeader.className = 'artist-page__header';
-    artistPageHeader.innerHTML = `
+    artistPageHeader.insertAdjacentHTML('beforeend', `
         <div class="artist-page__photo-wrapper">
             <img class="artist-page__photo" src="${artistData.images[0].url}" alt="${artistData.name}" />
         </div>
@@ -132,13 +145,13 @@ function setArtistPage(artistData, topTracksData, albumsData, singlesData, relat
             <h1 class="artist-page__name">${artistData.name}</h1>
             <div class="artist-page__listeners">${artistData.followers.total} подписчиков</div>
         </div>
-    `;
+    `);
 
     root.innerHTML = '';
     root.append(artistPageHeader);
     root.append(parseTracks(topTracksData, true, true));
 
-    const unicAlbumsData = getUnicElements(albumsData);
+    const unicAlbumsData = getUnicElementsByName(albumsData);
 
     const artistAlbums = document.createElement('div');
     artistAlbums.className = 'content-items__wrapper';
@@ -146,7 +159,7 @@ function setArtistPage(artistData, topTracksData, albumsData, singlesData, relat
 
     root.append(artistAlbums);
 
-    const unicSinglesData = getUnicElements(singlesData);
+    const unicSinglesData = getUnicElementsByName(singlesData);
 
     const artistsSingles = document.createElement('div');
     artistsSingles.className = 'content-items__wrapper';
@@ -170,12 +183,22 @@ function setArtistPage(artistData, topTracksData, albumsData, singlesData, relat
  * @param {string} aristId Идентификатор артиста на сервере Spotify.
  */
 
-export async function artistPage(aristId) {
-    const artistData = getArtistData(aristId);
-    const topTracksData = getArtistsTopTracks(aristId);
-    const albumsData = getArtistsAlbums(aristId);
-    const singlesData = getArtistsSingles(aristId);
-    const relatedArtistsData = getRelatedArtists(aristId);
+export async function artistPage(artistId) {
+    if (!artistId) {
+        somethingWentWrongAlert();
+        return;
+    }
 
-    setArtistPage(await artistData, (await topTracksData).tracks, (await albumsData).items, (await singlesData).items, (await relatedArtistsData).artists.slice(0, 6));
+    const artistData = await getArtistData(artistId);
+    const topTracksData = await getArtistsTopTracks(artistId);
+    const albumsData = await getArtistsAlbums(artistId);
+    const singlesData = await getArtistsSingles(artistId);
+    const relatedArtistsData = await getRelatedArtists(artistId);
+
+    if (!artistData || !topTracksData || !albumsData || !singlesData || !relatedArtistsData) {
+        serverNoDataAlert();
+        return;
+    }
+
+    setArtistPage(artistData, topTracksData, albumsData, singlesData, relatedArtistsData);
 }

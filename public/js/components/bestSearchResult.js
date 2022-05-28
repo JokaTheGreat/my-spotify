@@ -17,7 +17,7 @@ export function parseBestSearchResult(searchData) {
 
     const bestResultHeader = document.createElement('h2');
     bestResultHeader.className = 'best-search-result__title';
-    bestResultHeader.innerHTML = 'Лучший результат';
+    bestResultHeader.insertAdjacentText('beforeend', 'Лучший результат');
     
     bestResult.append(bestResultHeader);
 
@@ -65,17 +65,17 @@ export function parseBestSearchResult(searchData) {
     if (subtitle) {
         const subtitleTag = document.createElement('h3');
         subtitleTag.className = 'best-search-result__subtitle';
-        subtitleTag.innerHTML = subtitle;
+        subtitleTag.insertAdjacentText('beforeend', subtitle);
 
         extraInfoTag.append(subtitleTag);
     }
     const typeTag = document.createElement('h3');
     typeTag.className = 'best-search-result__type';
-    typeTag.innerHTML = type;
+    typeTag.insertAdjacentText('beforeend', type);
 
     extraInfoTag.append(typeTag);
 
-    bestResultBody.innerHTML = `
+    bestResultBody.insertAdjacentHTML('beforeend', `
         <div class="best-search-result__img-container">
             ${parseItemCover(coverURL, title).outerHTML}
         </div>
@@ -86,7 +86,7 @@ export function parseBestSearchResult(searchData) {
         </div>
         <h2 class="best-search-result__title">${title}</h2>
         ${extraInfoTag.outerHTML}
-    `;
+    `);
     
     bestResult.append(bestResultBody);
     return bestResult;

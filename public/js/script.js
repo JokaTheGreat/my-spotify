@@ -1,7 +1,6 @@
-'use strict';
 import { CLIENT_ID, CLIENT_SECRET } from './properties.js';
 import { search } from './components/searchPage.js';
-import { nextTrack, prevTrack, togglePlay, setTrackTime, setVolume } from './player.js';
+import { nextTrack, prevTrack, togglePlay, setTrackTime, setVolume, MAX_AUDIO_VOLUME } from './player.js';
 
 /**
  * Получает токен с сервера Spotify и сохраняет его в localStorage.
@@ -88,9 +87,10 @@ function addPlayerFunctionality() {
     nextTrack();
   };
 
+  /*
   const randomTracksOrder = () => {
 
-  };
+  };*/
 
   audio.addEventListener('ended', normalTracksOrder);
 
@@ -125,7 +125,7 @@ function addPlayerFunctionality() {
       setVolume(0);
     }
     else {
-      setVolume(94);
+      setVolume(MAX_AUDIO_VOLUME);
     }
   });
   /*

@@ -1,7 +1,8 @@
 import { parseBestSearchResult } from "./bestSearchResult.js";
 import { parseTracks } from "./tracks.js";
 import { parseContentItems } from "./contentItems.js";
-import { request } from '../request.js';
+import { request, REQUESTED_ITEMS_FOR_PAGE_LIMIT } from '../request.js';
+import { serverNoDataAlert } from "../alert.js";
 
 /**
  * Получает данные по поисковому запросу на сервер Spotify.
@@ -10,11 +11,14 @@ import { request } from '../request.js';
  */
 
 async function getSearchData(requestString) {
-  const url = 'https://api.spotify.com/v1/search?q=' + requestString + '&type=artist,track,album' + '&limit=6';
+  const url = 'https://api.spotify.com/v1/search?q=' + requestString + '&type=artist,track,album' + '&limit=' + REQUESTED_ITEMS_FOR_PAGE_LIMIT;
 
   const response = await request(url);
-  const data = await response.json();
+  if (!response.ok) {
+    return null;
+  }
 
+  const data = await response.json();
   return data;
 }
 
@@ -25,10 +29,7 @@ async function getSearchData(requestString) {
  */
 
 function setSearchPage(data) {
-  const root = document.getElementsByClassName('content')[0] ||
-    document.getElementsByClassName('search-result')[0] ||
-    document.getElementsByClassName('album-page')[0] ||
-    document.getElementsByClassName('artist-page')[0];
+  const root = document.getElementsByClassName('main')[0].children[1];
   root.className = 'search-result';
 
   root.innerHTML = '';
@@ -47,9 +48,16 @@ function setSearchPage(data) {
 export async function search() {
   const searchInput = document.getElementsByClassName('search-form__input')[0];
 
-  if (searchInput.value === '') {
+  if (!searchInput?.value) {
     return;
   }
 
-  setSearchPage(await getSearchData(searchInput.value));
+  const searchPageData = await getSearchData(searchInput.value);
+
+  if (!searchPageData) {
+    serverNoDataAlert();
+    return;
+  }
+
+  setSearchPage(searchPageData);
 }

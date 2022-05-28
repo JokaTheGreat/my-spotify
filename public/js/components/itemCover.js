@@ -20,7 +20,7 @@ export function parseItemCover(coverURL, alt = 'cover') {
     cover.classList.add('content-item__img', 'artist-img-default');
     cover.setAttribute('height', '125px');
     cover.setAttribute('width', '125px');
-    cover.innerHTML = `<use xlink:href="imgs/icons/icons.svg#artist"></use>`;
+    cover.insertAdjacentHTML('beforeend', `<use xlink:href="imgs/icons/icons.svg#artist"></use>`);
 
     return cover;
 }

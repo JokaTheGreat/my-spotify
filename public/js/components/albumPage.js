@@ -1,55 +1,65 @@
-import { request } from '../request.js';
+import { MAX_REQUESTED_ITEMS_LIMIT, request, REQUESTED_ITEMS_FOR_PAGE_LIMIT_WITH_DUBLICATS } from '../request.js';
 import { getMiddleColor, createImg } from '../img.js';
 import { scrollToTop } from '../scroll.js';
 import { timeToString } from '../time.js';
-import { getUnicElements, arrayToString } from '../array.js';
+import { getUnicElementsByName, arrayToString } from '../array.js';
 import { parseContentItems } from './contentItems.js';
 import { parseTracks } from './tracks.js';
 import { artistPage } from './artistPage.js';
+import { serverNoDataAlert, somethingWentWrongAlert } from '../alert.js';
 
 /**
  * Запрашивает данные исполнителей с сервера Spotify.
  * @param {string} artistsId Строка с идентификаторами артистов на сервере Spotify, разделенными пробелами. 
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getArtistsData(artistsId) {
   const url = 'https://api.spotify.com/v1/artists?' + 'ids=' + artistsId;
 
   const response = await request(url);
-  const data = await response.json();
+  if (!response.ok) {
+    return null;
+  }
 
-  return data;
+  const data = await response.json();
+  return data?.artists;
 }
 
 /**
  * Запрашивает данные треков альбома с сервера Spotify.
  * @param {string} albumId Идентификатор альбома на сервере Spotify.
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getAlbumTracks(albumId) {
-  const url = 'https://api.spotify.com/v1/albums/' + albumId + '/tracks?' + 'limit=50';
+  const url = 'https://api.spotify.com/v1/albums/' + albumId + '/tracks?' + 'limit=' + MAX_REQUESTED_ITEMS_LIMIT;
 
   const response = await request(url);
-  const data = await response.json();
+  if (!response.ok) {
+    return null;
+  }
 
-  return data;
+  const data = await response.json();
+  return data?.items;
 }
 
 /**
  * Запрашивает данные других альбомов исполнителя с сервера Spotify.
  * @param {string} artistId Идентификатор одного из артистов на сервере Spotify, выпустившего альбом. 
- * @returns {Promise<object>} Полученные данные.
+ * @returns {Promise<Array<object> | null>} Полученные данные.
  */
 
 async function getArtistAlbums(artistId) {
-  const url = 'https://api.spotify.com/v1/artists/' + artistId + '/albums?' + 'limit=12';
+  const url = 'https://api.spotify.com/v1/artists/' + artistId + '/albums?' + 'limit=' + REQUESTED_ITEMS_FOR_PAGE_LIMIT_WITH_DUBLICATS;
 
   const response = await request(url);
-  const data = await response.json();
+  if (!response.ok) {
+    return null;
+  }
 
-  return data;
+  const data = await response.json();
+  return data?.items;
 }
 
 /**
@@ -90,6 +100,7 @@ function setHeaderColor(coverData) {
 
   img.onload = () => {
     const middleColorRGBString = getMiddleColor(img);
+
     if (middleColorRGBString) {
       document.getElementsByClassName('album-page-header')[0].style.backgroundColor = `rgb(${middleColorRGBString})`;
       document.getElementsByClassName('album-page__track-list')[0].style.backgroundColor = `rgb(${middleColorRGBString})`;
@@ -108,10 +119,7 @@ function setHeaderColor(coverData) {
  */
 
 function setAlbumPage(albumData, tracksData, artistsData, otherAlbumsData) {
-  const root = document.getElementsByClassName('content')[0] ||
-    document.getElementsByClassName('search-result')[0] ||
-    document.getElementsByClassName('album-page')[0] ||
-    document.getElementsByClassName('artist-page')[0];
+  const root = document.getElementsByClassName('main')[0].children[1];
   root.className = 'album-page';
 
   const albumPageHeader = document.createElement('section');
@@ -123,12 +131,12 @@ function setAlbumPage(albumData, tracksData, artistsData, otherAlbumsData) {
   for (const artistData of artistsData) {
     const artistTag = document.createElement('div');
     artistTag.className = 'album-page-header__artist-info';
-    artistTag.innerHTML = `
-      <div class="album-page-header__artist-img-container">
-        <img src="${artistData.images[0].url}" alt="${artistData.name}" class="album-page-header__artist-img" />
-      </div>
-      <span class="album-page-header__artist-name">${artistData.name} <b>·</b></span>
-    `;
+    artistTag.insertAdjacentHTML('beforeend', `
+    <div class="album-page-header__artist-img-container">
+      <img src="${artistData.images[0].url}" alt="${artistData.name}" class="album-page-header__artist-img" />
+    </div>
+    <span class="album-page-header__artist-name">${artistData.name} <b>·</b></span>
+  `);
 
     artistTag.addEventListener('click', () => artistPage(artistData.id));
 
@@ -142,7 +150,7 @@ function setAlbumPage(albumData, tracksData, artistsData, otherAlbumsData) {
   const albumLengthMS = tracksData.reduce((result, item) => result + item.duration_ms, 0);
   const albumLengthString = timeToString(albumLengthMS);
 
-  albumPageHeader.innerHTML = `
+  albumPageHeader.insertAdjacentHTML('beforeend', `
     <div class="album-page-header__shadow">
     </div>
     <div class="album-page-header__inner">
@@ -161,7 +169,7 @@ function setAlbumPage(albumData, tracksData, artistsData, otherAlbumsData) {
         </div>
       </div>
     </div>
-  `;
+  `);
 
   const albumInfo = albumPageHeader.children[1].children[1].children[2];
   albumInfo.prepend(artistInfo);
@@ -176,10 +184,10 @@ function setAlbumPage(albumData, tracksData, artistsData, otherAlbumsData) {
 
   const artistsNames = arrayToString(artistsData, 'name');
 
-  trackListFooter.innerHTML = `
+  trackListFooter.insertAdjacentHTML('beforeend', `
     <span class="track-list__copyright">© ${releaseYear} ${artistsNames}</span>
     <span class="track-list__phonogram">℗ ${releaseYear} ${artistsNames}</span>
-  `;
+  `);
 
   const albumPageTrackListInner = albumPageTrackList.children[0];
 
@@ -190,7 +198,7 @@ function setAlbumPage(albumData, tracksData, artistsData, otherAlbumsData) {
   const albumPageOtherAlbums = document.createElement('div');
   albumPageOtherAlbums.className = 'content-items__wrapper';
 
-  const unicAlbumsData = getUnicElements(otherAlbumsData);
+  const unicAlbumsData = getUnicElementsByName(otherAlbumsData);
 
   albumPageOtherAlbums.append(parseContentItems(unicAlbumsData, artistsData[0].name + ': другие альбомы'));
 
@@ -207,13 +215,30 @@ function setAlbumPage(albumData, tracksData, artistsData, otherAlbumsData) {
  */
 
 export async function albumPage(albumData) {
+  if (!albumData?.artists[0]?.id || !albumData?.id || !albumData?.images[0]?.url) {
+    somethingWentWrongAlert();
+    return;
+  }
+
+  const ARTIST_IDS_STRING_REGEX = /^[a-zA-Z0-9]{22}(,[a-zA-Z0-9]{22})*$/;
   const artistIdsString = arrayToString(albumData.artists, 'id');
-  const artistsData = getArtistsData(artistIdsString);
+  if (!artistIdsString.match(ARTIST_IDS_STRING_REGEX)) {
+    somethingWentWrongAlert();
+    return;
+  }
 
-  const otherAlbumsData = getArtistAlbums(albumData.artists[0].id);
+  const artistsData = await getArtistsData(artistIdsString);
 
-  const tracksData = getAlbumTracks(albumData.id);
-  const tracksDataUpdated = addCoverURL((await tracksData).items, albumData.images[0].url);
+  const otherAlbumsData = await getArtistAlbums(albumData.artists[0].id);
 
-  setAlbumPage(albumData, tracksDataUpdated, (await artistsData).artists, (await otherAlbumsData).items);
+  const tracksData = await getAlbumTracks(albumData.id);
+
+  if (!artistsData || !otherAlbumsData || !tracksData) {
+    serverNoDataAlert();
+    return;
+  }
+
+  const tracksDataUpdated = addCoverURL(tracksData, albumData.images[0].url);
+
+  setAlbumPage(albumData, tracksDataUpdated, artistsData, otherAlbumsData);
 }

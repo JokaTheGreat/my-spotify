@@ -2,6 +2,12 @@ import { arrayToSpanArray } from "./array.js";
 import { timeToString } from "./time.js";
 
 /**
+ * 94px - ширина полоски громкости на странице
+ */
+
+export const MAX_AUDIO_VOLUME = 94;
+
+/**
  * Устанавливает стили кнопок плеера.
  */
 

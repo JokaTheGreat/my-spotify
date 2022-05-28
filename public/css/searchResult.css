@@ -20,7 +20,7 @@
 
 .best-search-result__container {
     padding: 20px;
-    background-color: #181818;
+    background-color: var(--spotify-light-main-black);
     border-radius: 5px;
     position: relative;
     transition: .3s;

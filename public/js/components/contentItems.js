@@ -27,13 +27,13 @@ export function parseContentItems(contentData, contentTitle) {
 
   const showAllTag = document.createElement('span');
   showAllTag.className = 'content-items__show-all';
-  showAllTag.innerHTML = 'Все';
+  showAllTag.insertAdjacentText('beforeend', 'Все');
 
-  showAllTag.addEventListener('click', () => { console.log('Все') });
+  showAllTag.addEventListener('click', () => { /* будущий функционал */ });
 
-  contentHeader.innerHTML = `
+  contentHeader.insertAdjacentHTML('beforeend', `
     <h2 class="content-items__title">${contentTitle}</h2>
-  `;
+  `);
   contentHeader.append(showAllTag);
 
   const contentBody = document.createElement('div');
@@ -53,10 +53,10 @@ export function parseContentItems(contentData, contentTitle) {
       subtitle.append(...arrayToSpanArray(contentItemData.artists));
     }
     else {
-      subtitle.innerHTML = 'Исполнитель';
+      subtitle.insertAdjacentText('beforeend', 'Исполнитель');
     }
 
-    contentItem.innerHTML = `
+    contentItem.insertAdjacentHTML('beforeend', `
       <div class="content-item__inner">
         <div class="content-item__play-button-container">
           <div class="content-item__img-container ${contentType === 'album' ? '' : 'content-item__img-container_round'}">
@@ -70,7 +70,7 @@ export function parseContentItems(contentData, contentTitle) {
         </div>
         <h3 class="content-item__name">${title}</h3>
       </div>
-    `;
+    `);
 
     contentItem.children[0].append(subtitle);
 
