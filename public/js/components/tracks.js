@@ -110,7 +110,7 @@ function saveTracksDataToLocalStorage(tracksData = []) {
         return {
             coverURL: item.album.images[0].url,
             title: item.name,
-            artists: item.artists.map(artist => artist.name),
+            artists: item.artists.map(artist => { return { id: artist.id, name: artist.name }; }),
             audioPreviewURL: item.preview_url
         }
     });

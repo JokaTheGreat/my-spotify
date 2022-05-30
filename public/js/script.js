@@ -163,6 +163,13 @@ function addPlayerFunctionality() {
     toggleRandomTrackOrder();
     mixButton.classList.toggle('mix-button_active');
   });
+
+  const queryTracks = document.getElementsByClassName('menu__tracks-query')[0];
+  const queryButton = document.getElementsByClassName('query-button')[0];
+  queryButton.addEventListener('click', () => {
+    queryButton.classList.toggle('query-button_active');
+    queryTracks.classList.toggle('menu__tracks-query_hidden');
+  });
 }
 
 /**

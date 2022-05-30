@@ -11,13 +11,13 @@ export const MAX_AUDIO_VOLUME = 94;
  * Данные текущих треков
  */
 
-let currentTrackData = [];
+let currentTracksData = [];
 
 /**
  * Текущая очередь треков
  */
 
-let currentTrackOrder = [];
+let currentTracksOrder = [];
 
 /**
  * Id текущего трека из очереди
@@ -57,28 +57,31 @@ function setPlayerColors() {
 function setPlayer(trackId) {
     const artistContainer = document.createElement('div');
     artistContainer.className = 'current-track__artist-container';
-    artistContainer.append(...arrayToSpanArray(currentTrackData[currentTrackOrder[trackId]].artists, ['current-track__artist']));
+    artistContainer.append(...arrayToSpanArray(currentTracksData[currentTracksOrder[trackId]].artists, ['current-track__artist']));
 
-    const trackCoverTag = document.getElementsByClassName('current-track__cover')[0];
-    trackCoverTag.src = currentTrackData[currentTrackOrder[trackId]].coverURL;
-    trackCoverTag.alt = currentTrackData[currentTrackOrder[trackId]].title;
+    const playerCurrentTrack = document.getElementsByClassName('player__current-track')[0];
+
+    const trackCoverTag = playerCurrentTrack.getElementsByClassName('current-track__cover')[0];
+    trackCoverTag.src = currentTracksData[currentTracksOrder[trackId]].coverURL;
+    trackCoverTag.alt = currentTracksData[currentTracksOrder[trackId]].title;
     trackCoverTag.hidden = false;
 
-    const trackTitleTag = document.getElementsByClassName('current-track__title')[0];
-    trackTitleTag.innerHTML = currentTrackData[currentTrackOrder[trackId]].title;
+    const trackTitleTag = playerCurrentTrack.getElementsByClassName('current-track__title')[0];
+    trackTitleTag.innerHTML = currentTracksData[currentTracksOrder[trackId]].title;
 
-    const trackInfoTag = document.getElementsByClassName('current-track__info')[0];
+    const trackInfoTag = playerCurrentTrack.getElementsByClassName('current-track__info')[0];
     trackInfoTag.innerHTML = '';
     trackInfoTag.append(trackTitleTag);
     trackInfoTag.append(artistContainer);
 
-    audioTag.src = currentTrackData[currentTrackOrder[trackId]].audioPreviewURL;
+    audioTag.src = currentTracksData[currentTracksOrder[trackId]].audioPreviewURL;
 }
 
 /**
  * Устанавливает элементы progress-bar:
  * задает в плеере продолжительность трека,
  * обновляет текущее время трека и полоску воспроизведения.
+ * @returns {() => void} Функция, очищающая интервалы
  */
 
 function setProgressBar() {
@@ -105,11 +108,19 @@ function setProgressBar() {
     };
 
     const setCurrentTimeTask = setInterval(() => setCurrentTime(audioTag.currentTime), 1000);
-    setTimeout(() => clearInterval(setCurrentTimeTask), (audioTag.duration + 1) * 1000);
-
     const setCurrentProgressLineTask = setInterval(() => setCurrentProgressLine(audioTag.currentTime, audioTag.duration), 50);
-    setTimeout(() => clearInterval(setCurrentProgressLineTask), (audioTag.duration + 1) * 1000);
+
+    return () => {
+        clearInterval(setCurrentTimeTask);
+        clearInterval(setCurrentProgressLineTask);
+    }
 }
+
+/**
+ * Функция очищающая set progress bar интервалы.
+ */
+
+let clearSetProgressBar = () => { };
 
 /**
  * Переключает воспроизведение трека. Играющий на паузу. Остановленный запускает.
@@ -165,13 +176,19 @@ export function setVolume(offsetX) {
  */
 
 function playTrack() {
+    const queryAudioItems = document.getElementsByClassName('query-track');
+    for (let queryAudioItem of queryAudioItems) {
+        queryAudioItem.classList.remove('query-track_active');
+    }
+    queryAudioItems[currentTracksOrder[currentTrackId]].classList.add('query-track_active');
+
     const audioItems = document.getElementsByClassName('track');
     for (const [i, audioItem] of [...audioItems].entries()) {
-        if (i === currentTrackOrder[currentTrackId] && isCurrentTrackDataInLocalStorage()) {
-            audioItem.classList.add('track_active');
-            continue;
-        }
         audioItem.classList.remove('track_active');
+
+        if (i === currentTracksOrder[currentTrackId] && isCurrentTrackDataInLocalStorage()) {
+            audioItem.classList.add('track_active');
+        }
     }
 
     const playIcon = document.getElementsByClassName('play-icon')[0];
@@ -189,8 +206,13 @@ function playTrack() {
  */
 
 function pauseTrack() {
+    const queryAudioItems = document.getElementsByClassName('query-track');
+    for (let queryAudioItem of queryAudioItems) {
+        queryAudioItem.classList.remove('query-track_active');
+    }
+
     const audioItems = document.getElementsByClassName('track');
-    for (const audioItem of audioItems) {
+    for (let audioItem of audioItems) {
         audioItem.classList.remove('track_active');
     }
 
@@ -224,28 +246,30 @@ let isCurrentTrackOrderRandom = false;
 export function toggleRandomTrackOrder() {
     if (isCurrentTrackOrderRandom) {
         isCurrentTrackOrderRandom = false;
-        currentTrackId = currentTrackOrder[currentTrackId];
-        currentTrackOrder = Array.from(Array(currentTrackOrder.length).keys());
+        currentTrackId = currentTracksOrder[currentTrackId];
+        currentTracksOrder = Array.from(Array(currentTracksOrder.length).keys());
+        setTracksQueryOrder();
         return;
     }
 
     const newTrackOrder = [];
     newTrackOrder.push(currentTrackId);
-    currentTrackOrder.splice(currentTrackId, 1);
+    currentTracksOrder.splice(currentTrackId, 1);
 
-    let currentIndex = currentTrackOrder.length;
+    let currentIndex = currentTracksOrder.length;
 
     while (currentIndex) {
         const randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
 
-        newTrackOrder.push(currentTrackOrder[randomIndex]);
-        currentTrackOrder.splice(randomIndex, 1);
+        newTrackOrder.push(currentTracksOrder[randomIndex]);
+        currentTracksOrder.splice(randomIndex, 1);
     }
 
-    currentTrackOrder = [...newTrackOrder];
+    currentTracksOrder = [...newTrackOrder];
     currentTrackId = 0;
     isCurrentTrackOrderRandom = true;
+    setTracksQueryOrder();
 }
 
 /**
@@ -253,7 +277,7 @@ export function toggleRandomTrackOrder() {
  */
 
 export function nextTrack() {
-    if (currentTrackId === currentTrackOrder.length - 1) {
+    if (currentTrackId === currentTracksOrder.length - 1) {
         loadTrack(0);
         return;
     }
@@ -267,7 +291,7 @@ export function nextTrack() {
 
 export function prevTrack() {
     if (currentTrackId === 0) {
-        loadTrack(currentTrackOrder.length - 1);
+        loadTrack(currentTracksOrder.length - 1);
         return;
     }
 
@@ -289,7 +313,8 @@ function loadTrack(trackId) {
     setPlayer(trackId);
     setPlayerColors();
     audioTag.onloadedmetadata = () => {
-        setProgressBar();
+        clearSetProgressBar();
+        clearSetProgressBar = setProgressBar();
         playTrack();
     };
 }
@@ -300,23 +325,74 @@ function loadTrack(trackId) {
  */
 
 function isCurrentTrackDataInLocalStorage() {
-    return localStorage.getItem('tracksData') === JSON.stringify(currentTrackData);
+    return localStorage.getItem('tracksData') === JSON.stringify(currentTracksData);
+}
+
+/**
+ * Сортирует элементы очереди на странице в соответсвии с новым порядком.
+ */
+
+function setTracksQueryOrder() {
+    const queryTracks = document.getElementsByClassName('query-track');
+    currentTracksOrder.forEach((trackOrder, i) => {
+        queryTracks[trackOrder].style.order = i;
+    });
+}
+
+/**
+ * Добавляет элементы очереди на страницу.
+ */
+
+function setTracksQuery() {
+    const tracksQueryTag = document.getElementsByClassName('menu__tracks-list')[0];
+    tracksQueryTag.innerHTML = '';
+
+    currentTracksOrder.forEach((trackId, i) => {
+        const trackData = currentTracksData[trackId];
+        const trackTag = document.createElement('article');
+        trackTag.className = 'query-track';
+
+        trackTag.insertAdjacentHTML('beforeend', `
+          <div class="query-track__cover-wrapper">
+            <img class="query-track__cover" src="${trackData.coverURL}" />
+          </div>
+          <div class="query-track__info">
+            <span class="query-track__title">${trackData.title}</span>
+            <span class="query-track__artist-container"></span>
+          </div>
+        `);
+
+        const artistContainer = trackTag.children[1].children[1];
+        artistContainer.append(...arrayToSpanArray(currentTracksData[i].artists, ['current-track__artist']));
+
+        trackTag.addEventListener('click', (event) => {
+            if (event.target.classList.contains('link')) {
+                return;
+            }
+
+            loadTrack(+trackTag.style.order || i);
+        });
+
+        tracksQueryTag.append(trackTag);
+    });
 }
 
 /**
  * Заменяет очередь треков на новую.
  * Вызывает загрузку трека по идентификатору.
+ * Вызывает отрисовку очереди треков.
  * @param {number} trackId Идентификатор трека для загрузки. 
  */
 
 export function loadTracksQuery(trackId) {
     if (!isCurrentTrackDataInLocalStorage()) {
         const tracksData = JSON.parse(localStorage.getItem('tracksData'));
-        currentTrackData = tracksData;
-        currentTrackOrder = Array.from(Array(tracksData.length).keys());
+        currentTracksData = tracksData;
+        currentTracksOrder = Array.from(Array(tracksData.length).keys());
         currentTrackId = -1;
+        setTracksQuery();
     }
-    
+
     if (isCurrentTrackOrderRandom) {
         toggleRandomTrackOrder();
         loadTrack(trackId);

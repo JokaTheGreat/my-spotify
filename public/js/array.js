@@ -27,14 +27,7 @@ export function arrayToString(stringArray, field) {
 
 export function arrayToSpanArray(itemsData, spanClassList = []) {
     const itemsArray = [];
-
-    let itemsNames;
-    if (typeof itemsData[0] === 'string') {
-        itemsNames = itemsData;
-    }
-    else {
-        itemsNames = itemsData.map(item => item.name);
-    }
+    const itemsNames = itemsData.map(item => item.name);
 
     for (const [i, item] of itemsNames.entries()) {
         const itemTag = document.createElement('span');
