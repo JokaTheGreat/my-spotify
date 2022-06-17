@@ -1,0 +1,9 @@
+.home-page {
+  padding: 10px 30px 30px 30px;
+  display: grid;
+  grid-template: repeat(auto-fit, minmax(260px, 1fr)) / repeat(
+      auto-fill,
+      minmax(180px, 1fr)
+    );
+  gap: 32px 24px;
+}

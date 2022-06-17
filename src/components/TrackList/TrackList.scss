@@ -1,0 +1,161 @@
+.track-list__show-all {
+  text-transform: uppercase;
+  color: var(--spotify-main-grey);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.search-page__track-list {
+  grid-column: 3 / -1;
+
+  @media (max-width: 1115px) {
+    & {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  &-title {
+    color: white;
+  }
+}
+
+.album-page__track-list {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      var(--spotify-main-black) 220px
+    ),
+    var(--spotify-extra-black);
+
+  &-container {
+    padding: 20px 30px;
+  }
+
+  &-controls {
+    display: flex;
+    align-items: center;
+  }
+
+  &-favourite {
+    margin-left: 30px;
+    fill: var(--spotify-main-grey);
+
+    &:hover {
+      fill: white;
+    }
+  }
+
+  &-other {
+    margin-left: 30px;
+    fill: var(--spotify-main-grey);
+
+    &:hover {
+      fill: white;
+    }
+  }
+
+  &-header {
+    padding: 30px 45px 5px 25px;
+    margin-bottom: 20px;
+    border-bottom: var(--spotify-extra-black) solid 1px;
+    display: flex;
+    justify-content: space-between;
+    top: 30px;
+
+    &-left {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &-number {
+    color: var(--spotify-main-grey);
+  }
+
+  &-name {
+    padding-left: 25px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--spotify-main-grey);
+  }
+
+  &-length {
+    fill: var(--spotify-main-grey);
+  }
+
+  &-footer {
+    padding: 30px 0 50px 0;
+    display: flex;
+    flex-direction: column;
+    color: var(--spotify-main-grey);
+    font-size: 11px;
+  }
+}
+
+.artist-page__track-list {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      var(--spotify-main-black) 220px
+    ),
+    var(--spotify-extra-black);
+  padding: 20px 30px 50px 30px;
+
+  &-controls {
+    display: flex;
+    align-items: center;
+  }
+
+  &-subscribe-button {
+    margin: 0 30px;
+    padding: 7px 15px;
+    border: var(--spotify-dark-grey) solid 1px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: normal;
+    cursor: default;
+
+    &:hover {
+      border-color: white;
+    }
+  }
+
+  &-other {
+    fill: var(--spotify-main-grey);
+
+    &:hover {
+      fill: white;
+    }
+  }
+
+  &-popular-tracks-title {
+    padding: 20px 0;
+    font-size: 22px;
+    letter-spacing: -1px;
+  }
+}
+
+.popular-tracks__more {
+  margin: 20px 0 0 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--spotify-main-grey);
+  cursor: default;
+}
+
+.popular-tracks__more:hover {
+  color: white;
+}

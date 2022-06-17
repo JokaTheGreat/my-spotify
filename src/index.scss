@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "Spotify circular";
+  src: url("../public/fonts/CircularStd-Bold.eot");
+  src: local("☺"), url("../public/fonts/CircularStd-Bold.woff") format("woff"),
+    url("../public/fonts/CircularStd-Bold.ttf") format("truetype"),
+    url("../public/fonts/CircularStd-Bold.svg") format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Spotify circular";
+  src: url("../public/fonts/CircularStd-Book.eot");
+  src: local("☺"), url("../public/fonts/CircularStd-Book.woff") format("woff"),
+    url("../public/fonts/CircularStd-Book.ttf") format("truetype"),
+    url("../public/fonts/CircularStd-Book.svg") format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --spotify-main-black: #121212;
+  --spotify-light-main-black: #181818;
+  --spotify-extra-black: #282828;
+  --spotify-dark-grey: #535353;
+  --spotify-main-grey: #b3b3b3;
+  --spotify-green: #1ed760;
+}
+
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--spotify-main-black);
+  margin-block: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--spotify-dark-grey);
+  border: 1px solid var(--spotify-main-black);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "Spotify circular", Helvetica;
+  line-height: 1.6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template: minmax(485px, 87vh) minmax(13vh, 1fr) / 250px 1fr;
+  grid-template-areas:
+    "side-bar main"
+    "footer footer";
+}

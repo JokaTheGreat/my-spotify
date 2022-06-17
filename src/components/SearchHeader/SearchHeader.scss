@@ -1,0 +1,148 @@
+.header {
+  padding: 12px 20px 12px 30px;
+  display: flex;
+  align-items: center;
+  z-index: 120;
+}
+
+.header_sticky {
+  position: sticky;
+  top: 0;
+  background-color: var(--spotify-main-black);
+}
+
+.header_fixed {
+  position: fixed;
+  top: 0;
+}
+
+.page-pointers {
+  display: flex;
+}
+
+.page-pointers__arrow {
+  background-color: black;
+  padding: 4px;
+  border-radius: 50%;
+  fill: white;
+  opacity: 0.7;
+  cursor: not-allowed;
+
+  margin-right: 17px;
+}
+
+.page-pointers__arrow_right {
+  transform: rotate(180deg);
+}
+
+.page-pointers__arrow_active {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.search-form {
+  background-color: white;
+  border-radius: 100px;
+  padding: 8px 12px;
+
+  display: flex;
+}
+
+.search-form__button {
+  border: none;
+  padding: 0;
+  background: none;
+  height: 24px;
+  width: 24px;
+}
+
+.search-form__input {
+  font-size: 14px;
+  font-weight: 400;
+
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  width: 295px;
+}
+
+.search-form__clear-icon {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.search-form__clear-icon_active {
+  opacity: 1;
+}
+
+.account {
+  padding: 3px;
+  background-color: black;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.account_fixed {
+  position: fixed;
+  top: 10px;
+  right: 30px;
+}
+
+.account_margin-left-auto {
+  margin-left: auto;
+}
+
+.account:hover {
+  background-color: var(--spotify-extra-black);
+}
+
+.account__icon-container {
+  background-color: var(--spotify-dark-grey);
+  border-radius: 50%;
+  height: 27px;
+  width: 27px;
+  position: relative;
+}
+
+.account__icon {
+  fill: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.account__name {
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 10px;
+}
+
+.account__arrow-container {
+  height: 27px;
+  width: 27px;
+  position: relative;
+}
+
+.account__arrow {
+  fill: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 1023px) {
+  .page-pointers__arrow_right {
+    display: none;
+  }
+  .account__name {
+    display: none;
+  }
+  .account__arrow {
+    display: none;
+  }
+}

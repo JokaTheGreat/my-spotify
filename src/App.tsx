@@ -1,23 +1,19 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { WithPlayer, WithSearchHeader, WithSidebar } from "./components";
+import { AlbumPage, ArtistPage, HomePage, SearchPage } from "./pages";
+import { paths } from "./utils/paths";
+import { RoutesElement } from "./utils/routesElement";
+import { refreshTokenSetup } from "./utils/token";
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+export function App() {
+  refreshTokenSetup();
 
-// export default App;
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <RoutesElement />
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}
