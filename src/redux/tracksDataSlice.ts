@@ -28,15 +28,11 @@ export const tracksDataSlice = createSlice({
         value: action.payload,
       };
     },
-    //TODO: increaseCurrentTrackId и decrease..
     setCurrentTrackId: (state, action: PayloadAction<number>) => {
       return {
         ...state,
         currentTrackId: action.payload,
-        isTrackPlaying:
-          action.payload === state.currentTrackId
-            ? !state.isTrackPlaying
-            : true,
+        isTrackPlaying: true,
       };
     },
     increaseCurrentTrackId: (state) => {
@@ -57,6 +53,9 @@ export const tracksDataSlice = createSlice({
     toggleQueryShowing: (state) => {
       return { ...state, isQueryShowing: !state.isQueryShowing };
     },
+    toggleTrackPlaying: (state) => {
+      return { ...state, isTrackPlaying: !state.isTrackPlaying };
+    },
   },
 });
 
@@ -67,6 +66,7 @@ export const {
   increaseCurrentTrackId,
   decreaseCurrentTrackId,
   toggleQueryShowing,
+  toggleTrackPlaying,
 } = tracksDataSlice.actions;
 
 export const selectTracksData = (state: RootState) => state.tracksData.value;

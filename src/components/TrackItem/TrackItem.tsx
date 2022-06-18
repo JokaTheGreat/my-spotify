@@ -7,10 +7,12 @@ import { timeToString } from "../../utils/timeToString";
 import { SpanList } from "../SpanList/SpanList";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectCurrentTrackId,
   selectTracksData,
   setCurrentTrackId,
   setCurrentTrackOrder,
   setTracksData,
+  toggleTrackPlaying,
 } from "../../redux/tracksDataSlice";
 
 interface TrackItemProps extends Track {
@@ -30,6 +32,7 @@ export function TrackItem({
   isActive = false,
 }: TrackItemProps) {
   const tracksData = useSelector(selectTracksData);
+  const currentTrackId = useSelector(selectCurrentTrackId);
   const dispatch = useDispatch();
 
   const onClick = () => {
@@ -39,7 +42,12 @@ export function TrackItem({
       dispatch(setTracksData(newTracksData));
       dispatch(setCurrentTrackOrder(Array.from(Array(newTracksData).keys())));
     }
-    dispatch(setCurrentTrackId(number));
+
+    if (number === currentTrackId) {
+      dispatch(toggleTrackPlaying());
+    } else {
+      dispatch(setCurrentTrackId(number));
+    }
   };
 
   return (

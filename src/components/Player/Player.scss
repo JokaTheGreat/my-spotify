@@ -137,6 +137,12 @@
 }
 
 .progress-bar__main {
+    width: 510px;
+    height: 34px;
+    cursor: pointer;
+}
+
+.progress-bar__main-inner {
     width: 500px;
     height: 4px;
     border-radius: 2px;
@@ -178,6 +184,7 @@
 
 .side-controls {
     display: flex;
+    align-items: center;
 }
 
 .side-controls__btn {
@@ -200,6 +207,14 @@
 }
 
 .side-controls__volume-bar {
+    width: 94px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.side-controls__volume-bar-inner {
     width: 94px;
     height: 4px;
     border-radius: 2px;
