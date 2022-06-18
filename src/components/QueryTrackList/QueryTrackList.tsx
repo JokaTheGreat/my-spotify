@@ -7,6 +7,7 @@ import {
 } from "../../redux/tracksDataSlice";
 import { Track } from "../../types";
 import { QueryTrack } from "../QueryTrack/QueryTrack";
+import "./QueryTrackList.scss";
 
 export function QueryTrackList() {
   const tracksData = useSelector(selectTracksData);
@@ -22,7 +23,8 @@ export function QueryTrackList() {
     <div className="menu__tracks-query-wrapper">
       <div
         className={
-          "menu__tracks-query" + (isQueryShowing ? "" : " menu__tracks-query_hidden")
+          "menu__tracks-query" +
+          (isQueryShowing ? "" : " menu__tracks-query_hidden")
         }
       >
         <h3 className="menu__tracks-query-title">Текущий плейлист:</h3>

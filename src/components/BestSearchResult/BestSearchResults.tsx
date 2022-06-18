@@ -59,18 +59,24 @@ export function BestSearchResult({ data }: BestSearchResultProps) {
 
   const BestSearchResultContainer = () => (
     <div className="best-search-result__container">
-      <div className="best-search-result__img-container">
-        <img
-          src={itemData?.imgURL}
-          alt="Обложка"
-          className="best-search-result__img"
-        />
-      </div>
+      {itemData?.imgURL && (
+        <div className="best-search-result__img-container">
+          <img
+            src={itemData.imgURL}
+            alt="Обложка"
+            className="best-search-result__img"
+          />
+        </div>
+      )}
       <PlayButton className="best-search-result__play" />
       <h2 className="best-search-result__title">{itemData?.title}</h2>
       <div className="best-search-result__extra-info">
-        <h3 className="best-search-result__subtitle">{itemData?.subtitle}</h3>
-        <h3 className="best-search-result__type">{itemData?.type}</h3>
+        {itemData?.subtitle && (
+          <h3 className="best-search-result__subtitle">{itemData.subtitle}</h3>
+        )}
+        {itemData?.type && (
+          <h3 className="best-search-result__type">{itemData.type}</h3>
+        )}
       </div>
     </div>
   );
@@ -83,11 +89,17 @@ export function BestSearchResult({ data }: BestSearchResultProps) {
     <section className="best-search-result">
       <h2 className="best-search-result__title">Лучший результат</h2>
       {itemData?.type === "Исполнитель" ? (
-        <Link className="best-search-result__link" to={paths.artist(itemData.id)}>
+        <Link
+          className="best-search-result__link"
+          to={paths.artist(itemData.id)}
+        >
           <BestSearchResultContainer />
         </Link>
       ) : itemData?.type === "Альбом" ? (
-        <Link className="best-search-result__link" to={paths.album(itemData.id)}>
+        <Link
+          className="best-search-result__link"
+          to={paths.album(itemData.id)}
+        >
           <BestSearchResultContainer />
         </Link>
       ) : (

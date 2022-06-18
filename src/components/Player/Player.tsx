@@ -23,7 +23,7 @@ import {
 import { arrayToString } from "../../utils/arrayToString";
 import { timeToString } from "../../utils/timeToString";
 
-//TODO: оживить плеер
+//TODO: mix tracks
 
 export function Player() {
   const [playIconVisible, setPlayIconVisible] = useState(false);
@@ -48,6 +48,23 @@ export function Player() {
     if (!activeIcons.controlButtons) return;
 
     setActiveIcons({ ...activeIcons, mixIcon: !activeIcons.mixIcon });
+    
+    const oldTracksOrder = Array.from(Array(tracksData).keys());
+    const newTracksOrder = [];
+    newTracksOrder.push(currentTrackId);
+    oldTracksOrder.splice(currentTrackId, 1);
+
+    let currentIndex = oldTracksOrder.length;
+
+    while (currentIndex) {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        newTracksOrder.push(oldTracksOrder[randomIndex]);
+        oldTracksOrder.splice(randomIndex, 1);
+    }
+
+    dispatch(setCurrentTrackOrder(newTracksOrder));
   };
 
   const showQuery = () => {
@@ -116,18 +133,19 @@ export function Player() {
   };
 
   useEffect(() => {
-    if (tracksData.length) {
-      setActiveIcons({
-        ...activeIcons,
-        controlButtons: true,
-      });
-    }
     setAudios(
       tracksData.map((trackData) => new Audio(trackData.preview_url || ""))
     );
   }, [tracksData]);
 
   useEffect(() => {
+    if (tracksData.length) {
+      setActiveIcons({
+        ...activeIcons,
+        controlButtons: true,
+      });
+    }
+
     audios.forEach((audio) => {
       audio.onended = onEnded;
       audio.loop = activeIcons.repeatIcon;
@@ -148,7 +166,7 @@ export function Player() {
   }, [audios, isTrackPlaying, currentTrackId]);
 
   useEffect(() => {
-    //TODO: первый дюрэйшон не работает
+    //TODO: первый дюрэйшон и первая громкость не работает
     if (audios.length && currentTrackId !== -1) {
       setDuration(timeToString(audios[currentTrackId].duration * 1000, false));
 
@@ -178,10 +196,6 @@ export function Player() {
       };
     }
   }, [audios, currentTrackId]);
-
-  useEffect(() => {
-    console.log(currentTrackData);
-  }, [currentTrackData]);
 
   return (
     <footer className="player">

@@ -1,115 +1,119 @@
-.album-page-header {
-  padding: 70px 30px 20px 30px;
-  height: 340px;
-  background-color: var(--spotify-dark-grey);
-  position: relative;
-}
-
-.album-page-header__shadow {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%);
-}
-
-.album-page-header__inner {
-  position: absolute;
-  left: 30px;
-  bottom: 20px;
-  display: flex;
-  align-items: flex-end;
-}
-
-.album-page-header__cover-container {
-  flex-shrink: 0;
-  box-shadow: 0 0 25px 20px rgba(0, 0, 0, 0.15);
-  height: 230px;
-  width: 230px;
-  position: relative;
-  overflow: hidden;
-}
-
-.album-page-header__cover {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-}
-
-@media (max-width: 1280px) {
-  .album-page-header__cover-container {
-    height: 190px;
-    width: 190px;
+.album-page {
+  &__link {
+    text-decoration: none;
+    color: white;
   }
-}
 
-.album-page-header__text {
-  padding-left: 20px;
-}
+  &-header {
+    padding: 70px 30px 20px 30px;
+    height: 340px;
+    background-color: var(--spotify-dark-grey);
+    position: relative;
 
-.album-page-header__subtitle {
-  text-transform: uppercase;
-  font-size: 12px;
-}
+    &__shadow {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%);
+    }
 
-.album-page-header__title {
-  min-width: 270px;
-  font-size: 50px;
-  letter-spacing: -3px;
-  line-height: normal;
-  cursor: default;
-}
+    &__inner {
+      position: absolute;
+      left: 30px;
+      bottom: 20px;
+      display: flex;
+      align-items: flex-end;
+    }
 
-.album-page-header__info {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 700;
-}
+    &__cover {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
 
-.album-page-header__all-artists {
-  display: flex;
-}
+      &-container {
+        flex-shrink: 0;
+        box-shadow: 0 0 25px 20px rgba(0, 0, 0, 0.15);
+        height: 230px;
+        width: 230px;
+        position: relative;
+        overflow: hidden;
 
-.album-page-header__artist-info {
-  display: flex;
-  padding-right: 5px;
-  cursor: pointer;
-}
+        @media (max-width: 1280px) {
+          & {
+            height: 190px;
+            width: 190px;
+          }
+        }
+      }
+    }
 
-.album-page-header__artist-img-container {
-  height: 24px;
-  width: 24px;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-}
+    &__text {
+      padding-left: 20px;
+    }
 
-.album-page-header__artist-img {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-}
+    &__subtitle {
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    
+    &__title {
+      min-width: 270px;
+      font-size: 50px;
+      letter-spacing: -3px;
+      line-height: normal;
+      cursor: default;
+    }
 
-.album-page-header__artist-name {
-  padding-left: 5px;
-}
+    &__info {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
 
-.album-page-header__album-length {
-  padding-left: 5px;
-  color: var(--spotify-main-grey);
-}
+    &__all-artists {
+      display: flex;
+    }
 
-.album-page__link {
-  text-decoration: none;
-  color: white;
+    &__artist {
+      &-info {
+        display: flex;
+        padding-right: 5px;
+        cursor: pointer;
+      }
+
+      &-img {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+
+        &-container {
+          height: 24px;
+          width: 24px;
+          border-radius: 50%;
+          position: relative;
+          overflow: hidden;
+        }
+      }
+
+      &-name {
+        padding-left: 5px;
+      }
+    }
+
+    &__album-length {
+      padding-left: 5px;
+      color: var(--spotify-main-grey);
+    }
+  }
 }

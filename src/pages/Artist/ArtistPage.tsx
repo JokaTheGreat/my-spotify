@@ -29,7 +29,6 @@ export function ArtistPage() {
     ContentItemType[]
   >([]);
   const [headerBackgroundColor, setHeaderBackgroundColor] = useState("");
-  //TODO: Переделать все пустые url на "пустые" картинки
 
   const setNewArtistData = async () => {
     if (!artistId?.match(IDS_STRING_REGEX)) {
@@ -160,17 +159,16 @@ export function ArtistPage() {
         style={{ backgroundColor: headerBackgroundColor }}
         className="artist-page__header"
       >
-        <div className="artist-page__photo-wrapper">
-          <img
-            className="artist-page__photo"
-            src={
-              artistData?.images
-                ? artistData.images[1].url || artistData.images[0].url
-                : ""
-            }
-            alt="Обложка"
-          />
-        </div>
+        {artistData?.images && (
+          <div className="artist-page__photo-wrapper">
+            <img
+              className="artist-page__photo"
+              src={artistData.images[1].url || artistData.images[0].url}
+              alt="Обложка"
+            />
+          </div>
+        )}
+
         <div className="artist-page__info">
           <div className="upprove-sign">
             <UpproveIcon className="upprove-sign__icon" />

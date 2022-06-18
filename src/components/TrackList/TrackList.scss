@@ -154,8 +154,8 @@
   letter-spacing: 1px;
   color: var(--spotify-main-grey);
   cursor: default;
-}
 
-.popular-tracks__more:hover {
-  color: white;
+  &:hover {
+    color: white;
+  }
 }

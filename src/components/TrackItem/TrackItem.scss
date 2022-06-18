@@ -1,225 +1,199 @@
 .track {
-  padding: 10px 15px 10px 10px;
+  padding: 5px 15px 5px 10px;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-}
 
-.track_active {
-  background-color: var(--spotify-dark-grey);
-}
-
-.track_active .track__title {
-  color: var(--spotify-green);
-}
-
-.track_active .track__number {
-  display: none;
-}
-
-.track_active .track__play {
-  display: block;
-}
-
-.track_active .track__cover_shadow {
-  display: block;
-}
-
-.track_active .track__artist {
-  color: white;
-}
-
-.track_active .track__favourite {
-  opacity: 1;
-}
-
-.track_active .track__other {
-  opacity: 1;
-}
-
-.track:hover {
-  background-color: var(--spotify-extra-black);
-}
-
-.track:hover .track__number {
-  display: none;
-}
-
-.track:hover .track__play {
-  display: block;
-}
-
-.track:hover .track__cover_shadow {
-  display: block;
-}
-
-.track:hover .track__artist {
-  color: white;
-}
-
-.track:hover .track__favourite {
-  opacity: 1;
-}
-
-.track:hover .track__other {
-  opacity: 1;
-}
-
-.track__left {
-  display: flex;
-  align-items: center;
-}
-
-.track__number-container {
-  height: 40px;
-  width: 40px;
-  margin-right: 10px;
-  position: relative;
-}
-
-.track__number {
-  font-size: 18px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--spotify-main-grey);
-}
-
-.track__play {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  fill: white;
-}
-
-.track__cover-container {
-  overflow: hidden;
-  background-color: var(--spotify-main-grey);
-  height: 40px;
-  width: 40px;
-  margin-right: 10px;
-  position: relative;
-}
-
-.track__cover_shadow {
-  display: none;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.track__cover {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-}
-
-.track__info {
-  width: 180px;
-  display: flex;
-  flex-direction: column;
-}
-
-.track__title {
-  font-size: 16px;
-  line-height: normal;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.track__extra-info {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-}
-
-.track__explicit-content {
-  color: black;
-  font-size: 8px;
-  font-weight: 100;
-  background-color: var(--spotify-main-grey);
-  border-radius: 3px;
-  width: 15px;
-  min-width: 15px;
-  height: 15px;
-  line-height: 18px;
-  text-align: center;
-  margin-right: 5px;
-}
-
-.track__artist {
-  line-height: normal;
-  color: var(--spotify-main-grey);
-  font-size: 14px;
-}
-
-.track__artist-divider {
-  font-size: 14px;
-  line-height: normal;
-  color: var(--spotify-main-grey);
-  white-space: pre;
-}
-
-.track__center {
-  display: flex;
-  align-items: center;
-}
-
-@media (max-width: 820px) {
-  .track__center {
-    display: none;
+  &__link {
+    text-decoration: none;
   }
-}
 
-.track__listeners {
-  color: var(--spotify-main-grey);
-}
+  &_active {
+    background-color: var(--spotify-dark-grey);
 
-.track__right {
-  display: flex;
-  align-items: center;
-}
+    & .track__title {
+      color: var(--spotify-green);
+    }
 
-.track__favourite {
-  opacity: 0;
-  fill: var(--spotify-main-grey);
-}
+    & .track__number {
+      display: none;
+    }
 
-.track__favourite:hover {
-  fill: white;
-}
+    & .track__play {
+      display: block;
+    }
 
-.track__favourite_active {
-  fill: var(--spotify-green);
-}
+    & .track__cover_shadow {
+      display: block;
+    }
 
-.track__length {
-  width: 70px;
-  padding: 0 20px;
-  color: var(--spotify-main-grey);
-}
+    & .track__artist {
+      color: white;
+    }
 
-.track__other {
-  opacity: 0;
-  fill: white;
-}
+    & .track__favourite {
+      opacity: 1;
+    }
 
-.track__link {
-  text-decoration: none;
+    & .track__other {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    background-color: var(--spotify-extra-black);
+
+    & .track__number {
+      display: none;
+    }
+
+    & .track__play {
+      display: block;
+    }
+
+    & .track__cover_shadow {
+      display: block;
+    }
+
+    & .track__artist {
+      color: white;
+    }
+
+    & .track__favourite {
+      opacity: 1;
+    }
+
+    & .track__other {
+      opacity: 1;
+    }
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__number {
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--spotify-main-grey);
+
+    &-container {
+      height: 40px;
+      width: 40px;
+      margin-right: 10px;
+      position: relative;
+    }
+  }
+
+  &__play {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    fill: white;
+  }
+
+  &__cover {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+
+    &-container {
+      overflow: hidden;
+      background-color: var(--spotify-main-grey);
+      height: 40px;
+      width: 40px;
+      margin-right: 10px;
+      position: relative;
+    }
+
+    &_shadow {
+      display: none;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__info {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 16px;
+    line-height: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__extra-info {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  &__explicit-content {
+    color: black;
+    font-size: 8px;
+    font-weight: 100;
+    background-color: var(--spotify-main-grey);
+    border-radius: 3px;
+    width: 15px;
+    min-width: 15px;
+    height: 15px;
+    line-height: 18px;
+    text-align: center;
+    margin-right: 5px;
+  }
+
+  &__artist {
+    line-height: normal;
+    color: var(--spotify-main-grey);
+    font-size: 14px;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
+  &__favourite {
+    opacity: 0;
+    fill: var(--spotify-main-grey);
+
+    &:hover {
+      fill: white;
+    }
+  }
+
+  &__length {
+    width: 70px;
+    padding: 0 20px;
+    color: var(--spotify-main-grey);
+  }
+
+  &__other {
+    opacity: 0;
+    fill: white;
+  }
 }

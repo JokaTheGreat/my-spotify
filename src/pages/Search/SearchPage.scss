@@ -5,10 +5,10 @@
   grid-auto-rows: minmax(260px, 1fr);
   gap: 32px 24px;
   padding: 10px 30px 30px 30px;
-}
 
-@media (max-width: 1115px) {
-  .search-page {
-    grid-template-rows: 260px 260px;
+  @media (max-width: 1115px) {
+    & {
+      grid-template-rows: 260px 260px;
+    }
   }
 }
