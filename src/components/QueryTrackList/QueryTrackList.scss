@@ -1,0 +1,33 @@
+.menu {
+  &__tracks {
+    &-query {
+      height: 100%;
+      width: 100%;
+      overflow-y: scroll;
+      position: absolute;
+      top: 0;
+      transition: 1s;
+
+      &_hidden {
+        top: 100%;
+      }
+
+      &-wrapper {
+        height: 460px;
+        width: 100%;
+        position: relative;
+      }
+
+      &-title {
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        padding-bottom: 15px;
+      }
+    }
+    &-list {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

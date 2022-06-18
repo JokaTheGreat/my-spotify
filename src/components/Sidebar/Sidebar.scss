@@ -1,0 +1,42 @@
+.side-bar {
+  grid-area: side-bar;
+  font-size: 12px;
+
+  background-color: black;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu {
+  padding: 25px 25px 10px 25px;
+  display: flex;
+  flex-direction: column;
+
+  &__top {
+    margin: 30px 0 15px 0;
+
+    &::after {
+      display: block;
+      content: "";
+      height: 1px;
+      width: 100%;
+      border-radius: 1px;
+      background-color: var(--spotify-extra-black);
+      margin-top: 15px;
+    }
+  }
+
+  &__link {
+    color: white;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &__img {
+    fill: white;
+    margin-right: 15px;
+  }
+}

@@ -1,0 +1,19 @@
+.play-button {
+  opacity: 0;
+  background-color: var(--spotify-green);
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+
+  &__svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
