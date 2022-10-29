@@ -13,6 +13,7 @@ import {
   increaseCurrentTrackId,
   selectCurrentTrackData,
   selectCurrentTrackId,
+  selectCurrentTrackOrder,
   selectIsTrackPlaying,
   selectTracksData,
   setCurrentTrackId,
@@ -22,8 +23,36 @@ import {
 } from "../../redux/tracksDataSlice";
 import { arrayToString } from "../../utils/arrayToString";
 import { timeToString } from "../../utils/timeToString";
+import { Track } from "../../types";
 
-//TODO: mix tracks
+export function isTrackOrderMixed(
+  normalTrackOrder: number[],
+  trackOrder: number[]
+) {
+  return JSON.stringify(normalTrackOrder) !== JSON.stringify(trackOrder);
+}
+
+export function generateRandomTrackOrder(
+  tracksData: Track[],
+  currentTrackId: number
+): number[] {
+  const oldTracksOrder = Array.from(tracksData.keys());
+  const newTracksOrder = [];
+  newTracksOrder.push(currentTrackId);
+  oldTracksOrder.splice(currentTrackId, 1);
+
+  let currentIndex = oldTracksOrder.length;
+
+  while (currentIndex) {
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    newTracksOrder.push(oldTracksOrder[randomIndex]);
+    oldTracksOrder.splice(randomIndex, 1);
+  }
+
+  return newTracksOrder;
+}
 
 export function Player() {
   const [playIconVisible, setPlayIconVisible] = useState(false);
@@ -37,6 +66,7 @@ export function Player() {
   const currentTrackData = useSelector(selectCurrentTrackData);
   const currentTrackId = useSelector(selectCurrentTrackId);
   const isTrackPlaying = useSelector(selectIsTrackPlaying);
+  const currentTrackOrder = useSelector(selectCurrentTrackOrder);
   const [audios, setAudios] = useState<HTMLAudioElement[]>([]);
   const [duration, setDuration] = useState("0:00");
   const [currentTime, setCurrentTime] = useState("0:00");
@@ -44,27 +74,27 @@ export function Player() {
   const [currentVolumeBar, setCurrentVolumeBar] = useState(100);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(currentTrackOrder);
+  }, [currentTrackOrder]);
+
   const mixTrackOrder = () => {
     if (!activeIcons.controlButtons) return;
 
     setActiveIcons({ ...activeIcons, mixIcon: !activeIcons.mixIcon });
-    
-    const oldTracksOrder = Array.from(Array(tracksData).keys());
-    const newTracksOrder = [];
-    newTracksOrder.push(currentTrackId);
-    oldTracksOrder.splice(currentTrackId, 1);
 
-    let currentIndex = oldTracksOrder.length;
+    //TODO: доделать переходе на страницу
 
-    while (currentIndex) {
-        const randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        newTracksOrder.push(oldTracksOrder[randomIndex]);
-        oldTracksOrder.splice(randomIndex, 1);
+    if (isTrackOrderMixed(Array.from(tracksData.keys()), currentTrackOrder)) {
+      dispatch(setCurrentTrackId(currentTrackId));
+      dispatch(setCurrentTrackOrder(Array.from(tracksData.keys())));
+      return;
     }
 
-    dispatch(setCurrentTrackOrder(newTracksOrder));
+    dispatch(
+      setCurrentTrackOrder(generateRandomTrackOrder(tracksData, currentTrackId))
+    );
+    dispatch(setCurrentTrackId(0));
   };
 
   const showQuery = () => {
@@ -118,6 +148,7 @@ export function Player() {
   };
 
   const onEnded = () => {
+    console.log("ended");
     nextTrack();
   };
 
@@ -143,6 +174,7 @@ export function Player() {
       setActiveIcons({
         ...activeIcons,
         controlButtons: true,
+        mixIcon: false,
       });
     }
 
@@ -153,12 +185,11 @@ export function Player() {
   }, [audios]);
 
   useEffect(() => {
-    if (audios.length && currentTrackId !== -1) {
+    if (audios.length && currentTrackId) {
       setPlayIconVisible(!isTrackPlaying);
 
-      isTrackPlaying
-        ? audios[currentTrackId].play()
-        : audios[currentTrackId].pause();
+      console.log(currentTrackId);
+      isTrackPlaying && audios[currentTrackId].play();
       return () => {
         isTrackPlaying && audios[currentTrackId].pause();
       };
@@ -167,7 +198,7 @@ export function Player() {
 
   useEffect(() => {
     //TODO: первый дюрэйшон и первая громкость не работает
-    if (audios.length && currentTrackId !== -1) {
+    if (audios.length && currentTrackId) {
       setDuration(timeToString(audios[currentTrackId].duration * 1000, false));
 
       const setCurrentTimeTask = setInterval(

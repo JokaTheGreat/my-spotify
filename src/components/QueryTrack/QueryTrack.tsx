@@ -7,23 +7,24 @@ import "./QueryTrack.scss";
 interface QueryTrackProps {
   data: Track;
   isActive?: boolean;
-  number: number;
+  order: number;
 }
 
 export function QueryTrack({
   data,
   isActive = false,
-  number,
+  order,
 }: QueryTrackProps) {
   const dispatch = useDispatch();
 
   const onClick = () => {
-    dispatch(setCurrentTrackId(number));
+    dispatch(setCurrentTrackId(order));
   };
 
   return (
     <article
       onClick={onClick}
+      style={{ order: order }}
       className={"query-track " + (isActive ? "query-track_active" : "")}
     >
       <div className="query-track__cover-wrapper">

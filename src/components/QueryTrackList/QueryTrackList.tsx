@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   selectCurrentTrackId,
+  selectCurrentTrackOrder,
   selectIsQueryShowing,
   selectTracksData,
 } from "../../redux/tracksDataSlice";
@@ -12,6 +13,7 @@ import "./QueryTrackList.scss";
 export function QueryTrackList() {
   const tracksData = useSelector(selectTracksData);
   const currentTrackId = useSelector(selectCurrentTrackId);
+  const currentTrackOrder = useSelector(selectCurrentTrackOrder);
   const [data, setData] = useState<Track[]>();
   const isQueryShowing = useSelector(selectIsQueryShowing);
 
@@ -34,7 +36,7 @@ export function QueryTrackList() {
               key={trackData.id}
               data={trackData}
               isActive={currentTrackId === i}
-              number={i}
+              order={currentTrackOrder.findIndex((item) => item === i)}
             />
           ))}
         </div>

@@ -8,12 +8,14 @@ import { SpanList } from "../SpanList/SpanList";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCurrentTrackId,
+  selectCurrentTrackOrder,
   selectTracksData,
   setCurrentTrackId,
   setCurrentTrackOrder,
   setTracksData,
   toggleTrackPlaying,
 } from "../../redux/tracksDataSlice";
+import { generateRandomTrackOrder, isTrackOrderMixed } from "../Player/Player";
 
 interface TrackItemProps extends Track {
   number: number;
@@ -33,6 +35,7 @@ export function TrackItem({
 }: TrackItemProps) {
   const tracksData = useSelector(selectTracksData);
   const currentTrackId = useSelector(selectCurrentTrackId);
+  const currentTrackOrder = useSelector(selectCurrentTrackOrder);
   const dispatch = useDispatch();
 
   const onClick = () => {
@@ -40,13 +43,17 @@ export function TrackItem({
     if (JSON.stringify(tracksData) !== tracksDataString) {
       const newTracksData = JSON.parse(tracksDataString || "");
       dispatch(setTracksData(newTracksData));
-      dispatch(setCurrentTrackOrder(Array.from(Array(newTracksData).keys())));
+      dispatch(setCurrentTrackOrder(Array.from(newTracksData.keys())));
     }
 
     if (number === currentTrackId) {
       dispatch(toggleTrackPlaying());
     } else {
-      dispatch(setCurrentTrackId(number));
+      dispatch(
+        setCurrentTrackId(
+          currentTrackOrder.findIndex((item) => item === number)
+        )
+      );
     }
   };
 

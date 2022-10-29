@@ -71,12 +71,16 @@ export const {
 
 export const selectTracksData = (state: RootState) => state.tracksData.value;
 export const selectCurrentTrackData = (state: RootState) =>
-  state.tracksData.value[state.tracksData.currentTrackId];
+  state.tracksData.value[
+    state.tracksData.currentTrackOrder[state.tracksData.currentTrackId]
+  ];
 export const selectCurrentTrackId = (state: RootState) =>
-  state.tracksData.currentTrackId;
+  state.tracksData.currentTrackOrder[state.tracksData.currentTrackId];
 export const selectIsTrackPlaying = (state: RootState) =>
   state.tracksData.isTrackPlaying;
 export const selectIsQueryShowing = (state: RootState) =>
   state.tracksData.isQueryShowing;
+export const selectCurrentTrackOrder = (state: RootState) =>
+  state.tracksData.currentTrackOrder;
 
 export default tracksDataSlice.reducer;
